@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Mapper {
 	
-	
+
 	public static TrajetDto toDtoTrajet(Trajet trajet) {
 		TrajetDto trajetDto = new TrajetDto();
 		trajetDto.setUuid(trajet.getUuid());
@@ -35,8 +35,10 @@ public class Mapper {
 	}
 
 
-
+    //  la conversion de la planification en dto
 	public  static PlanificationVoyageDto toDtoPlanificationVoyage(PlanificationVoyage  planificationVoyage){
+
+
 		PlanificationVoyageDto planificationVoyageDto= new PlanificationVoyageDto();
 		    planificationVoyageDto.setUuid(planificationVoyage.getUuid());
 		    planificationVoyageDto.setHeureDepart(planificationVoyage.getHeureDepart());

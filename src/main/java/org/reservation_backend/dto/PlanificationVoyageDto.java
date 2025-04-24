@@ -1,17 +1,28 @@
 package org.reservation_backend.dto;
 
+import jakarta.annotation.Nonnull;
+import lombok.NonNull;
+
 import java.time.LocalDate;
 
 public class PlanificationVoyageDto {
 	private String uuid;
-    private LocalDate heureDepart;
-    private  LocalDate heureArrivee;
-    private int nombrePlaces;
-    private int nombrePlacesImage;
-    private double montant;
-    private String uuidTrajet;
-    private String uuidVehicule;
-    private String uuidUtilisateur;
+	@NonNull
+	private LocalDate heureDepart;
+	@NonNull
+	private  LocalDate heureArrivee;
+	@NonNull
+	private int nombrePlaces;
+	@NonNull
+	private int nombrePlacesImage;
+	@NonNull
+	private double montant;
+	@NonNull
+	private String uuidTrajet;
+	@NonNull
+	private String uuidVehicule;
+	@NonNull
+	private String uuidUtilisateur;
     
 	public String getUuid() {
 		return uuid;
@@ -67,23 +78,7 @@ public class PlanificationVoyageDto {
 	public void setUuidUtilisateur(String uuidUtilisateur) {
 		this.uuidUtilisateur = uuidUtilisateur;
 	}
-	public PlanificationVoyageDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public PlanificationVoyageDto(String uuid, LocalDate heureDepart, LocalDate heureArrivee, int nombrePlaces,
-			int nombrePlacesImage, double montant, String uuidTrajet, String uuidVehicule, String uuidUtilisateur) {
-		super();
-		this.uuid = uuid;
-		this.heureDepart = heureDepart;
-		this.heureArrivee = heureArrivee;
-		this.nombrePlaces = nombrePlaces;
-		this.nombrePlacesImage = nombrePlacesImage;
-		this.montant = montant;
-		this.uuidTrajet = uuidTrajet;
-		this.uuidVehicule = uuidVehicule;
-		this.uuidUtilisateur = uuidUtilisateur;
-	}
+
 	
     
     
