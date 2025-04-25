@@ -40,14 +40,7 @@ public class UtilisateurDto {
 		public UtilisateurDto() {
 			super();
 		}
-		public UtilisateurDto(String uuid, String prenom, String nom, String telephone, String adresse) {
-			super();
-			this.uuid = uuid;
-			this.prenom = prenom;
-			this.nom = nom;
-			this.telephone = telephone;
-			this.adresse = adresse;
-		}
+		
 		
         
 }

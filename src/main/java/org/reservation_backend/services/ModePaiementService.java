@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ModePaiementService {
-   ModePaiementDto add(ModePaiementDto modePaiementDto);
-   ModePaiementDto update(ModePaiementDto modePaiementDto,String uuid);
-   List<ModePaiementDto> listes();
-   ModePaiementDto get(String uuid);
+   ModePaiementDto addModePaiement(ModePaiementDto modePaiementDto);
+   ModePaiementDto updateModePaiement(ModePaiementDto modePaiementDto,String uuid);
+   List<ModePaiementDto> listesModePaiement();
+   ModePaiementDto getModePaiement(String uuid);
    boolean delete(String uuid);
 }

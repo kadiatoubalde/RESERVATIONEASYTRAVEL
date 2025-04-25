@@ -84,19 +84,7 @@ public class VehiculeDto {
 		super();
 	}
 
-	public VehiculeDto(String uuid, String marque, String immatriculation, String description,
-			EnumTypeVehicule enumTypeVehicule, int nombrePlace, String modele,
-			List<PlanificationVoyageDto> planificationVoyages) {
-		super();
-		this.uuid = uuid;
-		this.marque = marque;
-		this.immatriculation = immatriculation;
-		this.description = description;
-		this.enumTypeVehicule = enumTypeVehicule;
-		this.nombrePlace = nombrePlace;
-		this.modele = modele;
-		this.planificationVoyages = planificationVoyages;
-	}
+	
 
     
 

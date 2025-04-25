@@ -65,17 +65,5 @@ public class ReservationDto {
 	public ReservationDto() {
 		super();
 	}
-	public ReservationDto(String uuid, LocalDate date, StatutEnum statut, int nombreBagage, String numeroReservation,
-			String uuidPassager, String uuidPaiement, String uuidUtilisateur) {
-		super();
-		this.uuid = uuid;
-		this.date = date;
-		this.statut = statut;
-		this.nombreBagage = nombreBagage;
-		this.numeroReservation = numeroReservation;
-		this.uuidPassager = uuidPassager;
-		this.uuidPaiement = uuidPaiement;
-		this.uuidUtilisateur = uuidUtilisateur;
-	}
 	
 }

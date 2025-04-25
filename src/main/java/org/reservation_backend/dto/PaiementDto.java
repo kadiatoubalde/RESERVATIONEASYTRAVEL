@@ -56,17 +56,7 @@ public class PaiementDto {
 	public PaiementDto() {
 		super();
 	}
-	public PaiementDto(String uuid, String numeroPaiement, double montant, LocalDate datePaiement,
-			String uuidModePaiement, String uuidReservation, String uuiUtilisateur) {
-		super();
-		this.uuid = uuid;
-		this.numeroPaiement = numeroPaiement;
-		this.montant = montant;
-		this.datePaiement = datePaiement;
-		this.uuidModePaiement = uuidModePaiement;
-		this.uuidReservation = uuidReservation;
-		this.uuiUtilisateur = uuiUtilisateur;
-	}
+	
 		
 	
 }

@@ -18,11 +18,7 @@ public class VilleDto {
 	public VilleDto() {
 		super();
 	}
-	public VilleDto(String uuid, String libelle) {
-		super();
-		this.uuid = uuid;
-		this.libelle = libelle;
-	}
+	
 
 	
 	 

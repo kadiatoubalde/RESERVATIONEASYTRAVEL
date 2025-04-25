@@ -177,7 +177,7 @@ public class Mapper {
 		  villeDto.setLibelle(ville.getLibelle());
 		return  villeDto;
 	}
-	public  static  Ville toEntity(VilleDto villeDto) {
+	public  static  Ville toEntityVille(VilleDto villeDto) {
 		Ville ville = new Ville();
 		ville.setUuid(ville.getUuid());
 		ville.setLibelle(ville.getLibelle());
