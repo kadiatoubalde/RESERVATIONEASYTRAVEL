@@ -1,17 +1,10 @@
 package org.reservation_backend.mapper;
 
 
-import org.reservation_backend.dto.ModePaiementDto;
-import org.reservation_backend.dto.PaiementDto;
-import org.reservation_backend.dto.PassagerDto;
-import org.reservation_backend.dto.PlanificationVoyageDto;
-import org.reservation_backend.dto.ReservationDto;
-import org.reservation_backend.dto.TrajetDto;
-import org.reservation_backend.dto.UtilisateurDto;
-import org.reservation_backend.dto.VehiculeDto;
-import org.reservation_backend.dto.VilleDto;
+import org.reservation_backend.dto.*;
 import org.reservation_backend.models.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mapper {
@@ -133,23 +126,7 @@ public class Mapper {
 		reservation.setNombreBagage(reservation.getNombreBagage());
 		return  reservation;
    }
-   public  static UtilisateurDto toDtoUtilisateur(Utilisateur utilisateur) {
-	   UtilisateurDto utilisateurDto= new 	UtilisateurDto();
-	   utilisateurDto.setUuid(utilisateur.getUuid());
-	   utilisateurDto.setPrenom(utilisateur.getPrenom());
-	   utilisateurDto.setNom(utilisateur.getNom());
-	   utilisateurDto.setAdresse(utilisateur.getAdresse());
-	   utilisateurDto.setTelephone(utilisateur.getTelephone());
-		return  utilisateurDto;
-   }
-   public  static  Utilisateur toEntityUtilisateur(UtilisateurDto utilisateurDto) {
-		Utilisateur utilisateur = new Utilisateur();
-		utilisateur.setPrenom(utilisateur.getPrenom());
-		utilisateur.setNom(utilisateur.getNom());
-		utilisateur.setAdresse(utilisateur.getAdresse());
-		utilisateur.setTelephone(utilisateur.getTelephone());
-		return utilisateur;
-   }
+
    public  static VehiculeDto toDtoVehicule(Vehicule vehicule) {
 	     VehiculeDto  vehiculeDto = new  VehiculeDto();
 	     vehiculeDto.setUuid(vehicule.getUuid());
@@ -196,5 +173,42 @@ public class Mapper {
 		modePaiement.setLibelle(modePaiement.getLibelle());
 		modePaiement.setDescription(modePaiement.getDescription());
 		return modePaiement ;
+	}
+
+	public static RoleDto toRoleDto(Role role){
+		RoleDto dto = new RoleDto();
+		dto.setCode(role.getCode());
+		dto.setLabel(role.getLabel());
+		dto.setUuid(role.getUuid());
+		return dto;
+	}
+
+	public static UtilisateurDto toUtilisateurDto(Utilisateur utilisateur){
+		UtilisateurDto dto = new UtilisateurDto();
+		dto.setEmail(utilisateur.getEmail());
+		dto.setUuid(utilisateur.getUuid());
+		dto.setFirstname(utilisateur.getFirstname());
+		dto.setLastname(utilisateur.getLastname());
+		dto.setPassword(utilisateur.getPassword());
+		List<String> roles = new ArrayList<>();
+		utilisateur.getRoles().forEach(role -> roles.add(role.getCode()));
+		dto.setRoles(roles);
+		return dto;
+	}
+
+
+	public static Utilisateur toUtilisateur(UtilisateurDto utilisateurDto){
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setEmail(utilisateurDto.getEmail());
+		utilisateur.setFirstname(utilisateurDto.getFirstname());
+		utilisateur.setLastname(utilisateurDto.getLastname());
+		return utilisateur;
+	}
+
+	public static Role toRole(RoleDto roleDto){
+		Role role = new Role();
+		role.setLabel(roleDto.getLabel());
+		role.setCode(roleDto.getCode());
+		return role;
 	}
   }
