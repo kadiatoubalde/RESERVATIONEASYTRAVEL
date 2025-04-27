@@ -170,8 +170,8 @@ public class Mapper {
 	}
 	public static ModePaiement toEntityModePaiement(ModePaiementDto modePaiementDto) {
 		ModePaiement modePaiement = new ModePaiement();
-		modePaiement.setLibelle(modePaiement.getLibelle());
-		modePaiement.setDescription(modePaiement.getDescription());
+		modePaiement.setLibelle(modePaiementDto.getLibelle());
+		modePaiement.setDescription(modePaiementDto.getDescription());
 		return modePaiement ;
 	}
 

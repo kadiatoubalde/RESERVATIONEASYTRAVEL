@@ -20,7 +20,7 @@ public class ModePaiementController {
     @Autowired
 	private ModePaiementService modePaiementService;
     
-    @PostMapping("/modepaiement")
+    @PostMapping("/modePaiement")
     public ModePaiementDto addModePaiement(@RequestBody ModePaiementDto modePaiementDto) {
     	return modePaiementService.addModePaiement(modePaiementDto);
     }
