@@ -38,5 +38,4 @@ public class PlanificationVoyageController {
     public boolean deletePlanification(@PathVariable String uuid){
         return planificationVoyageService.deletePlanification(uuid);
     }
-
 }

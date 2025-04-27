@@ -47,15 +47,6 @@ public class TrajetDto {
 	public TrajetDto() {
 		super();
 	}
-	public TrajetDto(String uuid, String pointDepart, String pointArriver, String uuidPointDepart,
-			String uuidPointArriver, double montant) {
-		super();
-		this.uuid = uuid;
-		this.pointDepart = pointDepart;
-		this.pointArriver = pointArriver;
-		this.uuidPointDepart = uuidPointDepart;
-		this.uuidPointArriver = uuidPointArriver;
-		this.montant = montant;
-	}
+	
    
 }

@@ -9,8 +9,14 @@ public class PaiementDto {
 	private LocalDate  datePaiement;
 	private String uuidModePaiement;
 	private String uuidReservation;
-	private String uuiUtilisateur;
+	private String uuidUtilisateur;
 	
+	public String getUuidUtilisateur() {
+		return uuidUtilisateur;
+	}
+	public void setUuidUtilisateur(String uuidUtilisateur) {
+		this.uuidUtilisateur = uuidUtilisateur;
+	}
 	public String getUuid() {
 		return uuid;
 	}
@@ -47,26 +53,10 @@ public class PaiementDto {
 	public void setUuidReservation(String uuidReservation) {
 		this.uuidReservation = uuidReservation;
 	}
-	public String getUuiUtilisateur() {
-		return uuiUtilisateur;
-	}
-	public void setUuiUtilisateur(String uuiUtilisateur) {
-		this.uuiUtilisateur = uuiUtilisateur;
-	}
 	public PaiementDto() {
 		super();
 	}
-	public PaiementDto(String uuid, String numeroPaiement, double montant, LocalDate datePaiement,
-			String uuidModePaiement, String uuidReservation, String uuiUtilisateur) {
-		super();
-		this.uuid = uuid;
-		this.numeroPaiement = numeroPaiement;
-		this.montant = montant;
-		this.datePaiement = datePaiement;
-		this.uuidModePaiement = uuidModePaiement;
-		this.uuidReservation = uuidReservation;
-		this.uuiUtilisateur = uuiUtilisateur;
-	}
+	
 		
 	
 }

@@ -90,22 +90,7 @@ public class PassagerDto {
 			super();
 			
 		}
-		public PassagerDto(String uuid, String nom, String prenom, String adresse, String telephone,
-				String telephonePersonneContact, String adressePersonneContact, String civilite, String genre,
-				List<ReservationDto> reservations, List<PlanificationVoyageDto> voyages) {
-			super();
-			this.uuid = uuid;
-			this.nom = nom;
-			this.prenom = prenom;
-			this.adresse = adresse;
-			this.telephone = telephone;
-			this.telephonePersonneContact = telephonePersonneContact;
-			this.adressePersonneContact = adressePersonneContact;
-			this.civilite = civilite;
-			this.genre = genre;
-			this.reservations = reservations;
-			this.voyages = voyages;
-		}
+		
 	    
 	    
 	

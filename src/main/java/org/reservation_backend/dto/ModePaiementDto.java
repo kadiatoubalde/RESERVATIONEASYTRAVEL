@@ -47,13 +47,7 @@ public class ModePaiementDto {
 		super();
 	}
 
-	public ModePaiementDto(String uuid, String libelle, String description, List<PaiementDto> paiement) {
-		super();
-		this.uuid = uuid;
-		this.libelle = libelle;
-		Description = description;
-		this.paiement = paiement;
-	}
+	
 
   
 
