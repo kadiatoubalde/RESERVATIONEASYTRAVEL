@@ -99,7 +99,7 @@ public class Mapper {
 		paiementDto.setDatePaiement(paiement.getDatePaiement());
 		paiementDto.setUuidModePaiement(paiement.getModePaiement().getUuid());;
 		paiementDto.setUuidReservation(paiement.getReservation().getUuid());
-		paiementDto.setUuiUtilisateur(paiement.getUtilisateur().getUuid());
+		paiementDto.setUuidUtilisateur(paiement.getUtilisateur().getUuid());
 		return paiementDto;
   }
   
@@ -161,7 +161,7 @@ public class Mapper {
 	     vehiculeDto.setModele(vehicule.getModele());
 		return vehiculeDto;
    }
-   public static  Vehicule toEntity(VehiculeDto vehiculeDto) {
+   public static  Vehicule toEntityVehicule(VehiculeDto vehiculeDto) {
 		Vehicule vehicule = new Vehicule();
 		vehicule.setMarque(vehicule.getMarque());
 		vehicule.setImmatriculation(vehicule.getImmatriculation());
