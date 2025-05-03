@@ -190,11 +190,12 @@ public class Mapper {
 		dto.setFirstname(utilisateur.getFirstname());
 		dto.setLastname(utilisateur.getLastname());
 		dto.setPassword(utilisateur.getPassword());
+		dto.setTelephone(utilisateur.getTelephone());
 		List<String> roles = new ArrayList<>();
 		utilisateur.getRoles().forEach(role -> roles.add(role.getCode()));
 		dto.setRoles(roles);
 		return dto;
-	}
+	} 
 
 
 	public static Utilisateur toUtilisateur(UtilisateurDto utilisateurDto){
@@ -202,6 +203,7 @@ public class Mapper {
 		utilisateur.setEmail(utilisateurDto.getEmail());
 		utilisateur.setFirstname(utilisateurDto.getFirstname());
 		utilisateur.setLastname(utilisateurDto.getLastname());
+		utilisateur.setTelephone(utilisateurDto.getTelephone());
 		return utilisateur;
 	}
 

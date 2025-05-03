@@ -2,6 +2,6 @@ package org.reservation_backend.Enum;
 
 public enum StatutEnum {
 	
-	CONFIRME,ANNULER,EN_ATTENTE
+	CONFIRMER,ANNULER,EN_ATTENTE
 
 }

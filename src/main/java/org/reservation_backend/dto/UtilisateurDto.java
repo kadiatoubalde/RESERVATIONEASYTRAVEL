@@ -20,6 +20,8 @@ public class UtilisateurDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(message = "Le mot de passe est obligatoire")
     private String password;
+    @NotBlank(message = " Le numero de telephone est obligatoire")
+    private String telephone;
     private List<String> roles;
 
     private String token;
@@ -79,4 +81,13 @@ public class UtilisateurDto {
     public void setToken(String token) {
         this.token = token;
     }
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+    
 }

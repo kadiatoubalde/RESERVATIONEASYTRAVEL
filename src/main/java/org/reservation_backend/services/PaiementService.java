@@ -12,6 +12,6 @@ public interface PaiementService {
 	PaiementDto updatePaiement(PaiementDto paiementDto,String uuid);
 	PaiementDto getPaiement(String uuid);
 	List<PaiementDto> listePaiement();
-	boolean deletePaiement(String uui);
+	boolean deletePaiement(String uuid);
 
 }

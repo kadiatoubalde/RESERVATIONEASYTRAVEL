@@ -51,5 +51,4 @@ public class UtilisateurService implements UserDetailsService {
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User: %s, not found", username)));
     }
 
-
 }

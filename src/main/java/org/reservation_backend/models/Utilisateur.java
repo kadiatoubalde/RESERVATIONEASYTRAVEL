@@ -18,6 +18,7 @@ public class Utilisateur extends AbstractDomainClass implements UserDetails {
     private String lastname;
     private String email;
     private String password;
+    private String telephone;
     private boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -102,4 +103,13 @@ public class Utilisateur extends AbstractDomainClass implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+  
 }

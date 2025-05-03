@@ -5,6 +5,7 @@ import java.util.List;
 import org.reservation_backend.dto.PaiementDto;
 import org.reservation_backend.services.PaiementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,33 +16,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api/paiement")
 public class PaiementController {
 	
 	@Autowired
 	private PaiementService paiementService;
 	
-   @PostMapping("/Paiement")
-	public PaiementDto addPaiement(@RequestBody PaiementDto paiementDto) {
-        return paiementService.addPaiement(paiementDto);
+   @PostMapping("/ajouter")
+	public  ResponseEntity<PaiementDto> addPaiement(@RequestBody PaiementDto paiementDto) {
+	   PaiementDto savedPaiement = paiementService.addPaiement(paiementDto);
+        return ResponseEntity.ok(savedPaiement);
     }
-  @PutMapping("/Paiement/{uuid}")
-	    public PaiementDto updatePaiement(@RequestBody PaiementDto paiementDto, @PathVariable String uuid) {
-	        return paiementService.updatePaiement(paiementDto, uuid);
+  @PutMapping("/modifier/{uuid}")
+	    public ResponseEntity<PaiementDto> updatePaiement(@RequestBody PaiementDto paiementDto, @PathVariable String uuid) {
+	      PaiementDto updatedPaiement = paiementService.updatePaiement(paiementDto, uuid);
+	        return ResponseEntity.ok(updatedPaiement);
 	    }
-  @GetMapping("/Paiement/{uuid}")
-   public PaiementDto getPaiement(@PathVariable String uuid) {
-	     return paiementService.getPaiement(uuid);
+  @GetMapping("/recuperer/{uuid}")
+   public ResponseEntity<PaiementDto> getPaiement(@PathVariable String uuid) {
+	  PaiementDto paiement = paiementService.getPaiement(uuid);
+	     return ResponseEntity.ok(paiement);
 	 }
-  @GetMapping("/Paiement")
-  public List<PaiementDto> listePaiement() {
-      return paiementService.listePaiement();
+  @GetMapping("/list")
+  public ResponseEntity<List<PaiementDto>> listePaiement() {
+	  List<PaiementDto> paiements = paiementService.listePaiement();
+      return ResponseEntity.ok(paiements);
   }
-  @DeleteMapping("/Paiement/{uuid}")
-  public boolean deletePaiement(@PathVariable String uuid) {
-      return paiementService.deletePaiement(uuid);
+  @DeleteMapping("/supprimer/{uuid}")
+  public ResponseEntity<Void> deletePaiement(@PathVariable String uuid) {
+	  boolean deleted = paiementService.deletePaiement(uuid);
+	  if (deleted) {
+		  return ResponseEntity.noContent().build();
+	  } else {
+		  return ResponseEntity.notFound().build();
+	  }
+	
   }
-
-
 
 }
