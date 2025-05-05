@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
 public class PaiementServiceImpl implements PaiementService {
+	@Autowired
 	private PaiementRepository paiementRepository;
 	@Autowired
 	private ModePaiementRepository modePaiementRepository;
@@ -28,28 +29,24 @@ public class PaiementServiceImpl implements PaiementService {
 	private UtilisateurRepository utilisateurRepository;
 	@Override
 	public PaiementDto addPaiement(PaiementDto paiementDto) {
-		Optional<ModePaiement> modePaiementOptional = modePaiementRepository.findById(paiementDto.getUuidModePaiement());
-		Optional<Reservation> reservationOptional = reservationRepository.findById(paiementDto.getUuidReservation());
-		Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(paiementDto.getUuidUtilisateur());
-		 
-		Paiement paiement = Mapper.toEntityPaiement(paiementDto);
-		paiement = Mapper.toEntityPaiement(paiementDto);
-		
-		if(modePaiementOptional.isPresent()) {
-			paiement.setModePaiement(modePaiementOptional.get());
-		}
-		
-		if(reservationOptional.isPresent()) {
-			paiement.setReservation(reservationOptional.get());;
-		}
-		
-		if (utilisateurOptional.isPresent()) {
-	        paiement.setUtilisateur(utilisateurOptional.get());
-	    }
-	    if (!paiement.equals(new Paiement())) {
-	        paiement = paiementRepository.save(paiement);
-	    }
-	    return Mapper.toDtoPaiement(paiement);	
+
+	    ModePaiement modePaiement = modePaiementRepository.findByUuid(paiementDto.getUuidModePaiement())
+	        .orElseThrow(() -> new RuntimeException("Mode de paiement non trouvé"));
+
+	    Reservation reservation = reservationRepository.findByUuid(paiementDto.getUuidReservation())
+	        .orElseThrow(() -> new RuntimeException("Réservation non trouvée"));
+
+	    Utilisateur utilisateur = utilisateurRepository.findByUuid(paiementDto.getUuidUtilisateur())
+	        .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
+	    Paiement paiement = Mapper.toEntityPaiement(paiementDto);
+	    paiement.setModePaiement(modePaiement);
+	    paiement.setReservation(reservation);
+	    paiement.setUtilisateur(utilisateur);
+
+	    paiement = paiementRepository.save(paiement);
+
+	    return Mapper.toDtoPaiement(paiement);
 	}
 	@Override
 	public PaiementDto updatePaiement(PaiementDto paiementDto, String uuid) {

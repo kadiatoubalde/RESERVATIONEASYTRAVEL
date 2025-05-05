@@ -1,6 +1,7 @@
 package org.reservation_backend.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.reservation_backend.models.ModePaiement;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,7 @@ public interface ModePaiementRepository  extends JpaRepository<ModePaiement,Stri
 
 	@Query("SELECT m FROM ModePaiement m WHERE m.isDelete = false")
 	List<ModePaiement> listes();
+	
+	Optional<ModePaiement> findByUuid(String uuid);
 
 }

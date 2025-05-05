@@ -69,18 +69,18 @@ public class Mapper {
 		passagerDto.setGenre(passager.getGenre());
 		return passagerDto;
 	}
-  public static Passager toEntityPassager(PassagerDto PassagerDto) {
+  public static Passager toEntityPassager(PassagerDto passagerDto) {
 		Passager passager = new Passager();
-		passager.setUuid(passager.getUuid());
-		passager.setNom(passager.getNom());
-		passager.setPrenom(passager.getPrenom());
-		passager.setAdresse(passager.getAdresse());
-		passager.setTelephone(passager.getTelephone());
-		passager.setTelephonePersonneContact(passager.getTelephonePersonneContact());
-		passager.setAdressePersonneContact(passager.getAdressePersonneContact());
-		passager.setCivilite(passager.getCivilite());
-		passager.setGenre(passager.getGenre());
-		return passager;
+		passager.setUuid(passagerDto.getUuid());
+	    passager.setNom(passagerDto.getNom());
+	    passager.setPrenom(passagerDto.getPrenom());
+	    passager.setAdresse(passagerDto.getAdresse());
+	    passager.setTelephone(passagerDto.getTelephone());
+	    passager.setTelephonePersonneContact(passagerDto.getTelephonePersonneContact());
+	    passager.setAdressePersonneContact(passagerDto.getAdressePersonneContact());
+	    passager.setCivilite(passagerDto.getCivilite());
+	    passager.setGenre(passagerDto.getGenre());
+	    return passager;
        }
   
   
