@@ -1,6 +1,6 @@
 package org.reservation_backend.controller;
 
-
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 
 import org.reservation_backend.dto.ReservationDto;
@@ -17,23 +17,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/reservation")
+@RequestMapping("api")
+@SecurityRequirement(name = "bearerAuth")
 public class ReservationController {
 	
 @Autowired
 private ReservationService reservationService;
 
-@PostMapping("/ajouter")
+@PostMapping("/reservation")
 public ResponseEntity<ReservationDto> addReservation(@RequestBody ReservationDto reservationDto) {
 	ReservationDto createdReservation = reservationService.addReservation(reservationDto);
     return ResponseEntity.ok(createdReservation);
 }
-@PutMapping("/modifier/{uuid}")
+@PutMapping("/reservation/{uuid}")
 public  ResponseEntity<ReservationDto >updateReservation(@RequestBody ReservationDto reservationDto, @PathVariable String uuid) {
 	ReservationDto updatedReservation = reservationService.updateReservation(reservationDto, uuid);
     return ResponseEntity.ok(updatedReservation);
 }
-@GetMapping("/recuperer/{uuid}")
+@GetMapping("/reservation/{uuid}")
 public  ResponseEntity<ReservationDto> getReservation(@PathVariable String uuid) {
 	ReservationDto reservation = reservationService.getReservation(uuid);
 	if(reservation != null) {
@@ -43,12 +44,12 @@ public  ResponseEntity<ReservationDto> getReservation(@PathVariable String uuid)
 	}
   
 }
-@GetMapping("/lister")
+@GetMapping("/reservation")
 public ResponseEntity<List<ReservationDto>> listReservations() {
 	List<ReservationDto> reservations = reservationService.listeReservation();
     return ResponseEntity.ok(reservations);
 }
-@DeleteMapping("/supprimer/{uuid}")
+@DeleteMapping("/reservation/{uuid}")
 public ResponseEntity<Void> deleteReservation(@PathVariable String uuid) {
 	boolean deleted = reservationService.deleteReservation(uuid);
 	if(deleted) {

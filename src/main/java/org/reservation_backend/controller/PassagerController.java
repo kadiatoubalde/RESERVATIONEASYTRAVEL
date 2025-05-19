@@ -15,22 +15,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 @RestController
-@RequestMapping("api/passager")
+@RequestMapping("api")
 public class PassagerController {
 	@Autowired
     private PassagerService passagerService;
 	
-	 @PostMapping("/ajouter")
+	 @PostMapping("/passager")
 	    public ResponseEntity<PassagerDto> addPassager(@RequestBody PassagerDto passagerDto) {
 		 PassagerDto createdPassager = passagerService.addPassager(passagerDto);
 	        return ResponseEntity.ok(createdPassager);
 	    }
-	 @PutMapping("/modifier/{uuid}")
+	 @PutMapping("/passager/{uuid}")
 	    public ResponseEntity<PassagerDto> updatePassager(@RequestBody PassagerDto passagerDto, @PathVariable String uuid) {
 		 PassagerDto updatedPassager = passagerService.updatePassager(passagerDto, uuid);
 	        return ResponseEntity.ok(updatedPassager);
 	    }
-	 @GetMapping("/recuperer/{uuid}")
+	 @GetMapping("/passager/{uuid}")
 	    public ResponseEntity<PassagerDto> getPassager(@PathVariable String uuid) {
 		 PassagerDto passager = passagerService.getPassager(uuid);
 		 if(passager != null) {
@@ -39,12 +39,12 @@ public class PassagerController {
 			 return ResponseEntity.notFound().build();
 		 }
 	    }
-	 @GetMapping("/lister")
+	 @GetMapping("/passager")
 	    public  ResponseEntity<List<PassagerDto>> listePassager() {
 		 List<PassagerDto> passagers = passagerService.listePassager();
 	        return ResponseEntity.ok(passagers);
 	    }
-	 @DeleteMapping("/supprimer/{uuid}")
+	 @DeleteMapping("/passager/{uuid}")
 	    public ResponseEntity<Void> deletePassager(@PathVariable String uuid) {
 		 boolean deleted = passagerService.deletePassager(uuid);
 		 if(deleted) {

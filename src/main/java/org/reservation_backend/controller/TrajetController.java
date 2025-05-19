@@ -22,19 +22,19 @@ public class TrajetController {
 	@Autowired
 	private TrajetService trajetService;
 	
-	@PostMapping("trajet")
+	@PostMapping("/trajet")
 	public ResponseEntity<TrajetDto> addTrajet(@RequestBody TrajetDto trajetDto) {
 		TrajetDto createdTrajet = trajetService.addTrajet(trajetDto);
 		return ResponseEntity.ok(createdTrajet);
 	}
 	
-	@PutMapping("trajet/{uuid}")
+	@PutMapping("/trajet/{uuid}")
 	public  ResponseEntity<TrajetDto> updateTrajet(@RequestBody TrajetDto trajetDto,@PathVariable String uuid) {
 		TrajetDto updatedTrajet = trajetService.updateTrajet(trajetDto, uuid);
 		return ResponseEntity.ok(updatedTrajet);
 	}
 	
-	@GetMapping("trajet/{uuid}")
+	@GetMapping("/trajet/{uuid}")
 	public ResponseEntity<TrajetDto> getTrajet(@PathVariable String uuid) {
 		TrajetDto trajet = trajetService.getTrajet(uuid);
 		if(trajet != null) {

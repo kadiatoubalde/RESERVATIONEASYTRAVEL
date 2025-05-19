@@ -17,13 +17,13 @@ public class Mapper {
 		trajetDto.setPointArriver(trajet.getPointArrive().getLibelle());
 		trajetDto.setUuidPointArriver(trajet.getPointArrive().getUuid());
 		trajetDto.setUuidPointDepart(trajet.getPointDepart().getUuid());
+		trajetDto.setMontant(trajet.getMontant());
 		return trajetDto;
 	}
 	
 	public static Trajet toEntityTrajet(TrajetDto trajetDto) {
 		Trajet trajet = new Trajet();
-		trajet.setPointDepart(trajet.getPointDepart());
-		trajet.setPointArrive(trajet.getPointArrive());
+		trajet.setMontant(trajetDto.getMontant());
 		return trajet;
 	}
 
@@ -114,7 +114,6 @@ public class Mapper {
 		reservationDto.setNombreBagage(reservation.getNombreBagage());
 		reservationDto.setNumeroReservation(reservation.getNumeroReservation());
 		reservationDto.setUuidPassager(reservation.getPassager().getUuid());
-		reservationDto.setUuidPaiement(reservation.getPaiement().getUuid());
 		reservationDto.setUuidUtilisateur(reservation.getUtilisateur().getUuid());
 		return reservationDto;
    }
@@ -140,12 +139,12 @@ public class Mapper {
    }
    public static  Vehicule toEntityVehicule(VehiculeDto vehiculeDto) {
 		Vehicule vehicule = new Vehicule();
-		vehicule.setMarque(vehicule.getMarque());
-		vehicule.setImmatriculation(vehicule.getImmatriculation());
-		vehicule.setDescription(vehicule.getDescription());
-		vehicule.setEnumTypeVehicule(vehicule.getEnumTypeVehicule());
-		vehicule.setNombrePlace(vehicule.getNombrePlace());
-		vehicule.setModele(vehicule.getModele());
+		vehicule.setMarque(vehiculeDto.getMarque());
+		vehicule.setImmatriculation(vehiculeDto.getImmatriculation());
+		vehicule.setDescription(vehiculeDto.getDescription());
+		vehicule.setEnumTypeVehicule(vehiculeDto.getEnumTypeVehicule());
+		vehicule.setNombrePlace(vehiculeDto.getNombrePlace());
+		vehicule.setModele(vehiculeDto.getModele());
 		return vehicule;
 	}
 	public static  VilleDto toDtoVille(Ville ville){
@@ -156,8 +155,8 @@ public class Mapper {
 	}
 	public  static  Ville toEntityVille(VilleDto villeDto) {
 		Ville ville = new Ville();
-		ville.setUuid(ville.getUuid());
-		ville.setLibelle(ville.getLibelle());
+		ville.setUuid(villeDto.getUuid());
+		ville.setLibelle(villeDto.getLibelle());
 		return ville;
 	}
 	public  static ModePaiementDto toDtoModePaiement(ModePaiement modePaiement) {

@@ -3,7 +3,9 @@ package org.reservation_backend.serviceImpl;
 import org.reservation_backend.dto.TrajetDto;
 import org.reservation_backend.mapper.Mapper;
 import org.reservation_backend.models.Trajet;
+import org.reservation_backend.models.Ville;
 import org.reservation_backend.repository.TrajetRepository;
+import org.reservation_backend.repository.VilleRepository;
 import org.reservation_backend.services.TrajetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class TrajetServiceImpl  implements TrajetService{
 	
     @Autowired
 	private TrajetRepository trajetRepository;
+    @Autowired
+    private VilleRepository villeRepository;
      
 	/**
 	 * @param trajetDto
@@ -24,7 +28,11 @@ public class TrajetServiceImpl  implements TrajetService{
 	@Override
 	public TrajetDto addTrajet(TrajetDto trajetDto) {
 		Trajet trajet = new Trajet();
+		Ville depart = villeRepository.findById(trajetDto.getUuidPointDepart()).orElseThrow();
+		Ville arriver = villeRepository.findById(trajetDto.getUuidPointDepart()).orElseThrow();
 	    trajet = Mapper.toEntityTrajet(trajetDto);
+	    trajet.setPointArrive(arriver);
+	    trajet.setPointDepart(depart);
 		
 		if (!trajet.equals(new Trajet())) {
 			trajet = trajetRepository.save(trajet);

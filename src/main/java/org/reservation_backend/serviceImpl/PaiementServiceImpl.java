@@ -27,6 +27,8 @@ public class PaiementServiceImpl implements PaiementService {
 	private ReservationRepository reservationRepository;
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
+	@Autowired
+	private UtilisateurService utilisateurService;
 	@Override
 	public PaiementDto addPaiement(PaiementDto paiementDto) {
 
@@ -36,13 +38,13 @@ public class PaiementServiceImpl implements PaiementService {
 	    Reservation reservation = reservationRepository.findByUuid(paiementDto.getUuidReservation())
 	        .orElseThrow(() -> new RuntimeException("Réservation non trouvée"));
 
-	    Utilisateur utilisateur = utilisateurRepository.findByUuid(paiementDto.getUuidUtilisateur())
-	        .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+	  //  Utilisateur utilisateur = utilisateurRepository.findByUuid(paiementDto.getUuidUtilisateur())
+	   //     .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
 	    Paiement paiement = Mapper.toEntityPaiement(paiementDto);
 	    paiement.setModePaiement(modePaiement);
 	    paiement.setReservation(reservation);
-	    paiement.setUtilisateur(utilisateur);
+	    paiement.setUtilisateur(utilisateurService.getCurrentUser());
 
 	    paiement = paiementRepository.save(paiement);
 

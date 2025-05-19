@@ -10,7 +10,14 @@ public class Trajet extends  AbstractDomainClass{
     private Ville pointDepart;
     @ManyToOne
     private Ville pointArrive;
+    private double montant;
     
+	public double getMontant() {
+		return montant;
+	}
+	public void setMontant(double montant) {
+		this.montant = montant;
+	}
 	public Ville getPointDepart() {
 		return pointDepart;
 	}
@@ -23,15 +30,17 @@ public class Trajet extends  AbstractDomainClass{
 	public void setPointArrive(Ville pointArrive) {
 		this.pointArrive = pointArrive;
 	}
-	public Trajet() {
-		super();
-
-	}
-	public Trajet(Ville pointDepart, Ville pointArrive) {
+	public Trajet(Ville pointDepart, Ville pointArrive, double montant) {
 		super();
 		this.pointDepart = pointDepart;
 		this.pointArrive = pointArrive;
+		this.montant = montant;
 	}
+	public Trajet() {
+		super();
+		
+	}
+	
    
 
    

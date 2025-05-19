@@ -10,6 +10,10 @@ import org.reservation_backend.repository.UtilisateurRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.pulsar.PulsarProperties.Authentication;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,13 +26,17 @@ import java.util.stream.Collectors;
 @Service
 public class UtilisateurService implements UserDetailsService {
     Logger logger = LoggerFactory.getLogger(UtilisateurService.class);
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
+    private final PasswordEncoder passwordEncoder;
     @Autowired
     private UtilisateurRepository userRepository;
 
     @Autowired
     private RoleRepository roleRepository;
+
+    public UtilisateurService(@Lazy PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public UtilisateurDto register(UtilisateurDto userDto){
         logger.info("=========> registering user");
@@ -50,5 +58,14 @@ public class UtilisateurService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User: %s, not found", username)));
     }
+    
+    public Utilisateur getCurrentUser() {
+    	Utilisateur user =  (Utilisateur) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+    	return user;
+    }
+    
+    
+    
 
 }

@@ -16,33 +16,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/paiement")
+@RequestMapping("api")
 public class PaiementController {
 	
 	@Autowired
 	private PaiementService paiementService;
 	
-   @PostMapping("/ajouter")
+   @PostMapping("/paiement")
 	public  ResponseEntity<PaiementDto> addPaiement(@RequestBody PaiementDto paiementDto) {
 	   PaiementDto savedPaiement = paiementService.addPaiement(paiementDto);
         return ResponseEntity.ok(savedPaiement);
     }
-  @PutMapping("/modifier/{uuid}")
+  @PutMapping("/paiement/{uuid}")
 	    public ResponseEntity<PaiementDto> updatePaiement(@RequestBody PaiementDto paiementDto, @PathVariable String uuid) {
 	      PaiementDto updatedPaiement = paiementService.updatePaiement(paiementDto, uuid);
 	        return ResponseEntity.ok(updatedPaiement);
 	    }
-  @GetMapping("/recuperer/{uuid}")
+  @GetMapping("/paiement/{uuid}")
    public ResponseEntity<PaiementDto> getPaiement(@PathVariable String uuid) {
 	  PaiementDto paiement = paiementService.getPaiement(uuid);
 	     return ResponseEntity.ok(paiement);
 	 }
-  @GetMapping("/list")
+  @GetMapping("/paiement")
   public ResponseEntity<List<PaiementDto>> listePaiement() {
 	  List<PaiementDto> paiements = paiementService.listePaiement();
       return ResponseEntity.ok(paiements);
   }
-  @DeleteMapping("/supprimer/{uuid}")
+  @DeleteMapping("/paiement/{uuid}")
   public ResponseEntity<Void> deletePaiement(@PathVariable String uuid) {
 	  boolean deleted = paiementService.deletePaiement(uuid);
 	  if (deleted) {

@@ -11,7 +11,6 @@ public class ReservationDto {
     private  int   nombreBagage;
     private  String numeroReservation;
     private String uuidPassager;
-    private String uuidPaiement;
     private String uuidUtilisateur;
     
 	public String getUuid() {
@@ -49,12 +48,6 @@ public class ReservationDto {
 	}
 	public void setUuidPassager(String uuidPassager) {
 		this.uuidPassager = uuidPassager;
-	}
-	public String getUuidPaiement() {
-		return uuidPaiement;
-	}
-	public void setUuidPaiement(String uuidPaiement) {
-		this.uuidPaiement = uuidPaiement;
 	}
 	public String getUuidUtilisateur() {
 		return uuidUtilisateur;

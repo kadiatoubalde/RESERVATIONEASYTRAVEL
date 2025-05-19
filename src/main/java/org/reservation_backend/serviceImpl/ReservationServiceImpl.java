@@ -34,16 +34,11 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public ReservationDto addReservation(ReservationDto reservationDto) {
 		Optional<Passager> passagerOptional = passagerRepository.findById(reservationDto.getUuidPassager());
-        Optional<Paiement> paiementOptional = paiementRepository.findById(reservationDto.getUuidPaiement());
         Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(reservationDto.getUuidUtilisateur());
         
         Reservation reservation = Mapper.toEntityReservation(reservationDto);
         if (passagerOptional.isPresent()) {
             reservation.setPassager(passagerOptional.get());
-        }
-
-        if (paiementOptional.isPresent()) {
-            reservation.setPaiement(paiementOptional.get());
         }
 
         if (utilisateurOptional.isPresent()) {
@@ -57,7 +52,6 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public ReservationDto updateReservation(ReservationDto reservationDto, String uuid) {
 	  Optional<Passager> passagerOptional = passagerRepository.findById(reservationDto.getUuidPassager());
-	  Optional<Paiement> paiementOptional = paiementRepository.findById(reservationDto.getUuidPaiement());
 	  Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(reservationDto.getUuidUtilisateur());
 	  Reservation reservation = new Reservation();
 	  reservation = Mapper.toEntityReservation(reservationDto);
@@ -65,9 +59,7 @@ public class ReservationServiceImpl implements ReservationService {
 	        reservation.setPassager(passagerOptional.get());
 	    }
 
-	    if (paiementOptional.isPresent()) {
-	        reservation.setPaiement(paiementOptional.get());
-	    }
+
 
 	    if (utilisateurOptional.isPresent()) {
 	        reservation.setUtilisateur(utilisateurOptional.get());

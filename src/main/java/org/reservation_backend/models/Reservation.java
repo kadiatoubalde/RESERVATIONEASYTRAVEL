@@ -11,6 +11,7 @@ import org.reservation_backend.Enum.StatutEnum;
 @Entity
 public class Reservation  extends AbstractDomainClass{
     private LocalDate date;
+    
     private  StatutEnum statut ;
     private  int     nombreBagage;
     private  String numeroReservation;
