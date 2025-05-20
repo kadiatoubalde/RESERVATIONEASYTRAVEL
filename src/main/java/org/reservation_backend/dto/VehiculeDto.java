@@ -13,7 +13,6 @@ public class VehiculeDto {
     private int nombrePlace;
     private String modele;
     
-    private List<PlanificationVoyageDto> planificationVoyages;
 
     
 	public String getUuid() {
@@ -72,13 +71,9 @@ public class VehiculeDto {
 		this.modele = modele;
 	}
 
-	public List<PlanificationVoyageDto> getPlanificationVoyages() {
-		return planificationVoyages;
-	}
 
-	public void setPlanificationVoyages(List<PlanificationVoyageDto> planificationVoyages) {
-		this.planificationVoyages = planificationVoyages;
-	}
+
+
 
 	public VehiculeDto() {
 		super();

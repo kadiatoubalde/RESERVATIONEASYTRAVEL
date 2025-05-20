@@ -12,7 +12,6 @@ public class ReservationDto {
     private  String numeroReservation;
     private String uuidPassager;
     private String uuidUtilisateur;
-    
 	public String getUuid() {
 		return uuid;
 	}

@@ -27,24 +27,31 @@ public class Mapper {
 		return trajet;
 	}
 
-
     //  la conversion de la planification en dto
-	public  static PlanificationVoyageDto toDtoPlanificationVoyage(PlanificationVoyage  planificationVoyage){
+	public static PlanificationVoyageDto toDtoPlanificationVoyage(PlanificationVoyage planificationVoyage) {
+		PlanificationVoyageDto dto = new PlanificationVoyageDto();
+		dto.setUuid(planificationVoyage.getUuid());
+		dto.setHeureDepart(planificationVoyage.getHeureDepart());
+		dto.setHeureArrivee(planificationVoyage.getHeureArrivee());
+		dto.setNombrePlaces(planificationVoyage.getNombrePlaces());
+		dto.setNombrePlacesImage(planificationVoyage.getNombrePlacesImage());
+		dto.setMontant(planificationVoyage.getMontant());
 
-
-		PlanificationVoyageDto planificationVoyageDto= new PlanificationVoyageDto();
-		    planificationVoyageDto.setUuid(planificationVoyage.getUuid());
-		    planificationVoyageDto.setHeureDepart(planificationVoyage.getHeureDepart());
-		    planificationVoyageDto.setHeureArrivee(planificationVoyage.getHeureArrivee());
-		    planificationVoyageDto.setNombrePlaces(planificationVoyage.getNombrePlaces());
-		    planificationVoyageDto.setNombrePlacesImage(planificationVoyage.getNombrePlacesImage());
-		    planificationVoyageDto.setMontant(planificationVoyage.getMontant());
-		    planificationVoyageDto.setUuidTrajet(planificationVoyage.getTrajet().getPointDepart().getLibelle());
-		    planificationVoyageDto.setUuidTrajet(planificationVoyage.getTrajet().getPointArrive().getLibelle());
-		    planificationVoyageDto.setUuidVehicule(planificationVoyage.getVehicule().getUuid());
-		    planificationVoyageDto.setUuidUtilisateur(planificationVoyage.getUtilisateur().getUuid());
-			return  planificationVoyageDto;
+		if (planificationVoyage.getTrajet() != null) {
+			dto.setUuidTrajet(planificationVoyage.getTrajet().getUuid());
 		}
+
+		if (planificationVoyage.getVehicule() != null) {
+			dto.setUuidVehicule(planificationVoyage.getVehicule().getUuid());
+		}
+
+		if (planificationVoyage.getUtilisateur() != null) {
+			dto.setUuidUtilisateur(planificationVoyage.getUtilisateur().getUuid());
+		}
+
+		return dto;
+	}
+
 	public  static PlanificationVoyage toEntityPlanificationVoyage(PlanificationVoyageDto planificationVoyageDto)	{
 		PlanificationVoyage planificationVoyage = new PlanificationVoyage();
 		planificationVoyage.setUuid(planificationVoyage.getUuid());

@@ -8,7 +8,7 @@ public class ModePaiementDto {
     private String uuid;
 	private String libelle;
 	private String Description;
-	private List<PaiementDto> paiement;
+
 	
 
 	public String getUuid() {
@@ -35,13 +35,7 @@ public class ModePaiementDto {
 		Description = description;
 	}
 
-	public List<PaiementDto> getPaiement() {
-		return paiement;
-	}
 
-	public void setPaiement(List<PaiementDto> paiement) {
-		this.paiement = paiement;
-	}
 
 	public ModePaiementDto() {
 		super();

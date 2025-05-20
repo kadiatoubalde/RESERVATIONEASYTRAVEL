@@ -18,8 +18,7 @@ public class PassagerDto {
 	    private  String  adressePersonneContact;
 	    private  String  civilite;
 	    private  String  genre;
-	    private List<ReservationDto> reservations;
-	    private List<PlanificationVoyageDto>  voyages;
+
 		public String getUuid() {
 			return uuid;
 		}
@@ -74,18 +73,8 @@ public class PassagerDto {
 		public void setGenre(String genre) {
 			this.genre = genre;
 		}
-		public List<ReservationDto> getReservations() {
-			return reservations;
-		}
-		public void setReservations(List<ReservationDto> reservations) {
-			this.reservations = reservations;
-		}
-		public List<PlanificationVoyageDto> getVoyages() {
-			return voyages;
-		}
-		public void setVoyages(List<PlanificationVoyageDto> voyages) {
-			this.voyages = voyages;
-		}
+
+
 		public PassagerDto() {
 			super();
 			

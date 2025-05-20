@@ -27,17 +27,22 @@ public class TrajetServiceImpl  implements TrajetService{
 	 */
 	@Override
 	public TrajetDto addTrajet(TrajetDto trajetDto) {
-		Trajet trajet = new Trajet();
-		Ville depart = villeRepository.findById(trajetDto.getUuidPointDepart()).orElseThrow();
-		Ville arriver = villeRepository.findById(trajetDto.getUuidPointDepart()).orElseThrow();
-	    trajet = Mapper.toEntityTrajet(trajetDto);
-	    trajet.setPointArrive(arriver);
-	    trajet.setPointDepart(depart);
-		
-		if (!trajet.equals(new Trajet())) {
-			trajet = trajetRepository.save(trajet);
-		}
-		return  Mapper.toDtoTrajet(trajet);
+		// Récupération des villes liées au trajet
+		Ville villeDepart = villeRepository.findById(trajetDto.getUuidPointDepart())
+				.orElseThrow(() -> new RuntimeException("Ville de départ introuvable avec l'UUID : " + trajetDto.getUuidPointDepart()));
+
+		Ville villeArrive = villeRepository.findById(trajetDto.getUuidPointArriver())
+				.orElseThrow(() -> new RuntimeException("Ville d’arrivée introuvable avec l'UUID : " + trajetDto.getUuidPointArriver()));
+
+		// Construction de l'entité trajet avec les villes
+		Trajet trajet = Mapper.toEntityTrajet(trajetDto);
+		trajet.setPointArrive(villeArrive);
+		trajet.setPointDepart(villeDepart);
+		// Sauvegarde dans la base
+		Trajet saved = trajetRepository.save(trajet);
+
+		// Conversion en DTO pour la réponse
+		return Mapper.toDtoTrajet(saved);
 	}
 
 	/**
@@ -47,16 +52,29 @@ public class TrajetServiceImpl  implements TrajetService{
 	 */
 	@Override
 	public TrajetDto updateTrajet(TrajetDto trajetDto, String uuid) {
-		Trajet trajet = trajetRepository.findById(uuid).orElseThrow();
-		 trajet = Mapper.toEntityTrajet(trajetDto);
-		  
-		 if(!trajet.equals(new Trajet())) {
-			 trajet = trajetRepository.save(trajet);
-		 }
-		 
-		return  Mapper.toDtoTrajet(trajet);
+		// On récupère le trajet existant
+		Trajet existingTrajet = trajetRepository.findById(uuid)
+				.orElseThrow(() -> new RuntimeException("Trajet non trouvé avec l'UUID : " + uuid));
+
+		// On récupère les villes (point de départ et d'arrivée)
+		Ville villeDepart = villeRepository.findById(trajetDto.getUuidPointDepart())
+				.orElseThrow(() -> new RuntimeException("Ville de départ non trouvée"));
+		Ville villeArrivee = villeRepository.findById(trajetDto.getUuidPointArriver())
+				.orElseThrow(() -> new RuntimeException("Ville d'arrivée non trouvée"));
+
+		// Mise à jour des champs du trajet existant
+		existingTrajet.setPointDepart(villeDepart);
+		existingTrajet.setPointArrive(villeArrivee);
+		existingTrajet.setMontant(trajetDto.getMontant());
+
+		// Enregistrement du trajet mis à jour
+		Trajet savedTrajet = trajetRepository.save(existingTrajet);
+
+		// Retour du DTO
+		return Mapper.toDtoTrajet(savedTrajet);
 	}
-     
+
+
 	/**
 	 * @param uuid
 	 * @return
