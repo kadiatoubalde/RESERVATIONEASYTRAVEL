@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/ville")
 public class VilleController {
 	@Autowired
 	private VilleService villeService;
@@ -26,7 +26,7 @@ public class VilleController {
 		return ResponseEntity.ok(created);
 	}
 
-	@PutMapping("/ville/{uuid}")
+	@PutMapping("/{uuid}")
 	public ResponseEntity<VilleDto> updateVille(@RequestBody VilleDto villeDto,@PathVariable String uuid) {
 		VilleDto updated = villeService.updateVille(villeDto, uuid);
 		return ResponseEntity.ok(updated);

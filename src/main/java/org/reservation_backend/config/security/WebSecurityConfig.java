@@ -47,7 +47,7 @@ public class WebSecurityConfig {
             .cors(cors -> cors.configurationSource(request -> {
                 CorsConfiguration config = new CorsConfiguration();
                 config.setAllowCredentials(true);
-                config.setAllowedOrigins(List.of("http://localhost:4200"));
+                config.setAllowedOriginPatterns(List.of("*")); // Remplace `setAllowedOrigins` par `setAllowedOriginPatterns`
                 config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization"));
                 config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 config.setExposedHeaders(Arrays.asList("Authorization"));
@@ -119,7 +119,7 @@ public class WebSecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOriginPattern(""); // Utilisé à la place de setAllowedOrigins(List.of(""))
+        configuration.addAllowedOriginPattern("*"); // Utilisé à la place de setAllowedOrigins(List.of(""))
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*")); // Autorise tous les headers
         configuration.setAllowCredentials(true); // Autorise les cookies ou headers d'authentification

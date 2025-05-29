@@ -1,11 +1,13 @@
 package org.reservation_backend.mapper;
 
 
+import org.reservation_backend.Enum.EnumRoleUtilisateur;
 import org.reservation_backend.dto.*;
 import org.reservation_backend.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Mapper {
 	
@@ -191,17 +193,25 @@ public class Mapper {
 
 	public static UtilisateurDto toUtilisateurDto(Utilisateur utilisateur){
 		UtilisateurDto dto = new UtilisateurDto();
-		dto.setEmail(utilisateur.getEmail());
 		dto.setUuid(utilisateur.getUuid());
+		dto.setEmail(utilisateur.getEmail());
 		dto.setFirstname(utilisateur.getFirstname());
 		dto.setLastname(utilisateur.getLastname());
 		dto.setPassword(utilisateur.getPassword());
 		dto.setTelephone(utilisateur.getTelephone());
-		List<String> roles = new ArrayList<>();
-		utilisateur.getRoles().forEach(role -> roles.add(role.getCode()));
-		dto.setRoles(roles);
+		dto.setRole(utilisateur.getRole().name());
 		return dto;
-	} 
+	}
+
+	public static List<UtilisateurDto> toUtilisateurDtoList(List<Utilisateur> clients) {
+		if (clients == null || clients.isEmpty()) {
+			return List.of();
+		}
+
+		return clients.stream()
+				.map(Mapper::toUtilisateurDto)
+				.collect(Collectors.toList());
+	}
 
 
 	public static Utilisateur toUtilisateur(UtilisateurDto utilisateurDto){
@@ -210,6 +220,7 @@ public class Mapper {
 		utilisateur.setFirstname(utilisateurDto.getFirstname());
 		utilisateur.setLastname(utilisateurDto.getLastname());
 		utilisateur.setTelephone(utilisateurDto.getTelephone());
+		utilisateur.setRole(EnumRoleUtilisateur.valueOf(utilisateurDto.getRole()));
 		return utilisateur;
 	}
 

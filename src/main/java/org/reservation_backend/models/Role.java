@@ -14,8 +14,6 @@ public class Role extends AbstractDomainClass implements GrantedAuthority {
     private String code;
     private String label;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<Utilisateur> users = new HashSet<>();
 
     public String getCode() {
         return code;
@@ -33,13 +31,6 @@ public class Role extends AbstractDomainClass implements GrantedAuthority {
         this.label = label;
     }
 
-    public Set<Utilisateur> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<Utilisateur> users) {
-        this.users = users;
-    }
 
     @Override
     public String getAuthority() {
