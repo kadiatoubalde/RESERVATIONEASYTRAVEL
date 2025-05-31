@@ -56,15 +56,21 @@ public class VilleServiceImpl  implements VilleService{
 		// TODO Auto-generated method stub
 	}
 
+//	@Override
+//	public boolean deleteVille(String uuid) {
+//		Ville ville = villeRepository.findById(uuid).orElseThrow();
+//		if(!ville.isDelete()) {
+//			ville.setDelete(true);
+//			villeRepository.save(ville);
+//		}
+//		// TODO Auto-generated method stub
+//		return ville.isDelete();
+//	}
+
 	@Override
 	public boolean deleteVille(String uuid) {
-		Ville ville = villeRepository.findById(uuid).orElseThrow();
-		if(!ville.isDelete()) {
-			ville.setDelete(true);
-			villeRepository.save(ville);
-		}
-		// TODO Auto-generated method stub
-		return ville.isDelete();
+		villeRepository.deleteById(uuid);
+		return true;
 	}
 
 }

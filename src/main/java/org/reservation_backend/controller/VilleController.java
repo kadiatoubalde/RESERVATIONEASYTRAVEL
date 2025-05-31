@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ville")
+@RequestMapping("/villes")
 public class VilleController {
 	@Autowired
 	private VilleService villeService;
 	
-	@PostMapping("/ville")
+	@PostMapping("")
 	public ResponseEntity<VilleDto> addVille(@RequestBody VilleDto villeDto) {
 		VilleDto created =villeService.addVille(villeDto);
 		return ResponseEntity.ok(created);
@@ -32,7 +32,7 @@ public class VilleController {
 		return ResponseEntity.ok(updated);
 	}
 	
-	@GetMapping("/ville/{uuid}")
+	@GetMapping("/{uuid}")
 	public ResponseEntity<VilleDto> getVille(@PathVariable String uuid) {
 		VilleDto ville = villeService.getVille(uuid);
 		if(ville != null) {
@@ -42,13 +42,13 @@ public class VilleController {
 		}
 	}
 	
-	@GetMapping("/ville")
+	@GetMapping("")
 	public ResponseEntity<List<VilleDto>> listeVille() {
 		List<VilleDto> liste = villeService.listeVille();
 		return ResponseEntity.ok(liste);
 	}
 	
-	 @DeleteMapping("/ville/{uuid}")
+	@DeleteMapping("/{uuid}")
 	 public ResponseEntity<Void> deleteVille(@PathVariable String uuid) {
 		 boolean deleted = villeService.deleteVille(uuid);
 		 if(deleted) {

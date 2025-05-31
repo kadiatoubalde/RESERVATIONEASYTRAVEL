@@ -159,13 +159,13 @@ public class Mapper {
 	public static  VilleDto toDtoVille(Ville ville){
 		  VilleDto   villeDto= new VilleDto();
 		  villeDto.setUuid(ville.getUuid());
-		  villeDto.setLibelle(ville.getLibelle());
+		  villeDto.setNom(ville.getLibelle());
 		return  villeDto;
 	}
 	public  static  Ville toEntityVille(VilleDto villeDto) {
 		Ville ville = new Ville();
 		ville.setUuid(villeDto.getUuid());
-		ville.setLibelle(villeDto.getLibelle());
+		ville.setLibelle(villeDto.getNom());
 		return ville;
 	}
 	public  static ModePaiementDto toDtoModePaiement(ModePaiement modePaiement) {

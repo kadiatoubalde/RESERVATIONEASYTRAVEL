@@ -2,19 +2,24 @@ package org.reservation_backend.dto;
 
 public class VilleDto {
 	 private String uuid;
-	 private String libelle;
+	 private String nom;
+
 	public String getUuid() {
 		return uuid;
 	}
+
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-	public String getLibelle() {
-		return libelle;
+
+	public String getNom() {
+		return nom;
 	}
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
+
 	public VilleDto() {
 		super();
 	}
