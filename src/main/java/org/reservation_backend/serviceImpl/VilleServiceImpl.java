@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.reservation_backend.dto.VilleDto;
+import org.reservation_backend.fonction.Fonction;
 import org.reservation_backend.mapper.Mapper;
 import org.reservation_backend.models.Ville;
 import org.reservation_backend.repository.VilleRepository;
@@ -30,14 +31,9 @@ public class VilleServiceImpl  implements VilleService{
 	@Override
 	public VilleDto updateVille(VilleDto villeDto, String uuid) {
 		Ville ville = villeRepository.findById(uuid).orElseThrow();
-		ville = Mapper.toEntityVille(villeDto);
-		
-		if(!ville.equals(new Ville())) {
-		 ville = villeRepository.save(ville);
-		}
-		return Mapper.toDtoVille(ville);
-
-		// TODO Auto-generated method stub
+		ville.setLibelle(villeDto.getNom());
+		ville = villeRepository.save(ville);
+		return  Mapper.toDtoVille(ville);
 	}
 
 	@Override
