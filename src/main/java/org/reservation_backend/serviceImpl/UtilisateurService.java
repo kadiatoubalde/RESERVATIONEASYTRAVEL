@@ -1,5 +1,6 @@
 package org.reservation_backend.serviceImpl;
 
+import org.reservation_backend.Enum.EnumRoleUtilisateur;
 import org.reservation_backend.dto.UtilisateurDto;
 import org.reservation_backend.exception.ResourceAlreadyExistException;
 import org.reservation_backend.fonction.Fonction;
@@ -78,5 +79,10 @@ public class UtilisateurService implements UserDetailsService {
         user = Fonction.updateEntityWithNonNullFields(user,utilisateurDto,"uuid");
         userRepository.save(user);
         return ResponseEntity.ok(Mapper.toUtilisateurDto(user));
+    }
+
+    public List<UtilisateurDto> getByRole(String role) {
+        List<Utilisateur> utilisateurs = userRepository.findByRole(EnumRoleUtilisateur.valueOf(role));
+        return Mapper.toUtilisateurDtoList(utilisateurs);
     }
 }

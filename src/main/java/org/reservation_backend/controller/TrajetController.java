@@ -2,7 +2,9 @@ package org.reservation_backend.controller;
 
 import java.util.List;
 
+import org.reservation_backend.dto.AttribuerChauffeurRequest;
 import org.reservation_backend.dto.TrajetDto;
+import org.reservation_backend.models.Trajet;
 import org.reservation_backend.services.TrajetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,25 +18,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/trajets")
 public class TrajetController {
 	
 	@Autowired
 	private TrajetService trajetService;
 	
-	@PostMapping("/trajet")
+	@PostMapping("")
 	public ResponseEntity<TrajetDto> addTrajet(@RequestBody TrajetDto trajetDto) {
 		TrajetDto createdTrajet = trajetService.addTrajet(trajetDto);
 		return ResponseEntity.ok(createdTrajet);
 	}
 	
-	@PutMapping("/trajet/{uuid}")
+	@PutMapping("/{uuid}")
 	public  ResponseEntity<TrajetDto> updateTrajet(@RequestBody TrajetDto trajetDto,@PathVariable String uuid) {
 		TrajetDto updatedTrajet = trajetService.updateTrajet(trajetDto, uuid);
 		return ResponseEntity.ok(updatedTrajet);
 	}
 	
-	@GetMapping("/trajet/{uuid}")
+	@GetMapping("/{uuid}")
 	public ResponseEntity<TrajetDto> getTrajet(@PathVariable String uuid) {
 		TrajetDto trajet = trajetService.getTrajet(uuid);
 		if(trajet != null) {
@@ -43,13 +45,13 @@ public class TrajetController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	 @GetMapping("/trajet")
+	 @GetMapping("")
 	 public  ResponseEntity<List<TrajetDto>> listeTrajet() {
 		 List<TrajetDto> trajets = trajetService.listeTrajet();
 		 return ResponseEntity.ok(trajets);
 	 }
 	 
-	 @DeleteMapping("/trajet/{uuid}") 
+	 @DeleteMapping("/{uuid}")
 	 public ResponseEntity<Void> deleteTrajet(@PathVariable String uuid) {
 		 boolean deleted = trajetService.deleteTrajet(uuid);
 		 if(deleted) {
@@ -58,4 +60,11 @@ public class TrajetController {
 			 return ResponseEntity.notFound().build();
 		 }	 
 	 }
+
+	@PostMapping("/{trajetId}/attribuer")
+	public ResponseEntity<String> attribuerChauffeur(@PathVariable String trajetId, @RequestBody AttribuerChauffeurRequest chauffeurId) {
+		return ResponseEntity.ok(
+				trajetService.attribuer(trajetId,chauffeurId.getChauffeurId())
+		);
+	}
 }

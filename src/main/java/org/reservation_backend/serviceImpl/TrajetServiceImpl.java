@@ -1,10 +1,13 @@
 package org.reservation_backend.serviceImpl;
 
+import org.reservation_backend.Enum.EnumRoleUtilisateur;
 import org.reservation_backend.dto.TrajetDto;
 import org.reservation_backend.mapper.Mapper;
 import org.reservation_backend.models.Trajet;
+import org.reservation_backend.models.Utilisateur;
 import org.reservation_backend.models.Ville;
 import org.reservation_backend.repository.TrajetRepository;
+import org.reservation_backend.repository.UtilisateurRepository;
 import org.reservation_backend.repository.VilleRepository;
 import org.reservation_backend.services.TrajetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +23,16 @@ public class TrajetServiceImpl  implements TrajetService{
 	private TrajetRepository trajetRepository;
     @Autowired
     private VilleRepository villeRepository;
-     
-	/**
+	private  Mapper mapper;
+	@Autowired
+	private UtilisateurRepository utilisateurRepository;
+
+	@Autowired
+	public TrajetServiceImpl(Mapper mapper) {
+		this.mapper = mapper;
+	}
+
+    /**
 	 * @param trajetDto
 	 * @return
 	 */
@@ -35,7 +46,7 @@ public class TrajetServiceImpl  implements TrajetService{
 				.orElseThrow(() -> new RuntimeException("Ville d’arrivée introuvable avec l'UUID : " + trajetDto.getUuidPointArriver()));
 
 		// Construction de l'entité trajet avec les villes
-		Trajet trajet = Mapper.toEntityTrajet(trajetDto);
+		Trajet trajet = mapper.toEntityTrajet(trajetDto);
 		trajet.setPointArrive(villeArrive);
 		trajet.setPointDepart(villeDepart);
 		// Sauvegarde dans la base
@@ -108,5 +119,16 @@ public class TrajetServiceImpl  implements TrajetService{
 			trajetRepository.save(trajet);
 		}
 		return trajet.isDelete();
+	}
+
+	@Override
+	public String attribuer(String trajetId, String chauffeurId) {
+		System.out.println(trajetId + " "+ chauffeurId);
+		Trajet trajet = trajetRepository.findById(trajetId).orElseThrow(()->new RuntimeException("Trajet non trouv<UNK>"));
+		Utilisateur chauffeur = utilisateurRepository.findByUuidAndRole(chauffeurId, EnumRoleUtilisateur.CHAUFFEUR)
+				.orElseThrow(()->new RuntimeException("Utilisateur non trouv<UNK>"));
+		trajet.setChauffeur(chauffeur);
+		trajetRepository.save(trajet);
+		return "trajet attribué";
 	}
 }

@@ -26,6 +26,8 @@ public class Utilisateur extends AbstractDomainClass implements UserDetails {
     @Enumerated(EnumType.STRING)
     private EnumRoleUtilisateur role;
 
+    @OneToMany(mappedBy = "chauffeur")
+    private List<Trajet> trajets;
 
     /**
      * @return

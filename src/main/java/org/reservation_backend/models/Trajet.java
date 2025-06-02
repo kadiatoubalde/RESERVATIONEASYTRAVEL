@@ -1,7 +1,12 @@
 package org.reservation_backend.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 public class Trajet extends  AbstractDomainClass{
@@ -11,7 +16,25 @@ public class Trajet extends  AbstractDomainClass{
     @ManyToOne
     private Ville pointArrive;
     private double montant;
-    
+    private LocalDate dateDepart;
+	private LocalTime timeDepart;
+
+	public LocalDate getDateDepart() {
+		return dateDepart;
+	}
+
+	public void setDateDepart(LocalDate dateDepart) {
+		this.dateDepart = dateDepart;
+	}
+
+	public LocalTime getTimeDepart() {
+		return timeDepart;
+	}
+
+	public void setTimeDepart(LocalTime timeDepart) {
+		this.timeDepart = timeDepart;
+	}
+
 	public double getMontant() {
 		return montant;
 	}
@@ -40,9 +63,17 @@ public class Trajet extends  AbstractDomainClass{
 		super();
 		
 	}
-	
-   
 
-   
 
-    }
+	@ManyToOne
+	@JoinColumn(name = "chauffeur_id")
+	private Utilisateur chauffeur;
+
+	public Utilisateur getChauffeur() {
+		return chauffeur;
+	}
+
+	public void setChauffeur(Utilisateur chauffeur) {
+		this.chauffeur = chauffeur;
+	}
+}

@@ -36,5 +36,12 @@ public class UtilisateurController {
     public  ResponseEntity<UtilisateurDto> create(@RequestBody UtilisateurDto utilisateurDto){
         return new ResponseEntity<UtilisateurDto>(utilisateurService.register(utilisateurDto), HttpStatus.CREATED);
     }
+    @GetMapping
+    public ResponseEntity<List<UtilisateurDto>> getByRole(@RequestParam String role) {
+        return ResponseEntity.ok(
+                utilisateurService.getByRole(role)
+        );
+    }
+
 
 }

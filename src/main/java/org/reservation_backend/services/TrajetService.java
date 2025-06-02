@@ -13,8 +13,7 @@ public interface TrajetService {
 	TrajetDto getTrajet(String uuid);
 	List<TrajetDto> listeTrajet();
 	boolean deleteTrajet(String uuid);
-	
-	 
-	
 
+
+    String attribuer(String trajetId, String chauffeurId);
 }

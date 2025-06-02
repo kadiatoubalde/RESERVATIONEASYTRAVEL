@@ -4,15 +4,21 @@ package org.reservation_backend.mapper;
 import org.reservation_backend.Enum.EnumRoleUtilisateur;
 import org.reservation_backend.dto.*;
 import org.reservation_backend.models.*;
+import org.reservation_backend.services.VilleService;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Component
 public class Mapper {
-	
 
-	public static TrajetDto toDtoTrajet(Trajet trajet) {
+	private final VilleService villeService;
+
+    public Mapper(VilleService villeService) {
+        this.villeService = villeService;
+    }
+
+    public static TrajetDto toDtoTrajet(Trajet trajet) {
 		TrajetDto trajetDto = new TrajetDto();
 		trajetDto.setUuid(trajet.getUuid());
 		trajetDto.setPointDepart(trajet.getPointDepart().getLibelle());
@@ -20,16 +26,27 @@ public class Mapper {
 		trajetDto.setUuidPointArriver(trajet.getPointArrive().getUuid());
 		trajetDto.setUuidPointDepart(trajet.getPointDepart().getUuid());
 		trajetDto.setMontant(trajet.getMontant());
+		trajetDto.setDateDepart(trajet.getDateDepart());
+		trajetDto.setTimeDepart(trajet.getTimeDepart());
 		return trajetDto;
 	}
-	
-	public static Trajet toEntityTrajet(TrajetDto trajetDto) {
+
+	public  Trajet toEntityTrajet(TrajetDto trajetDto) {
 		Trajet trajet = new Trajet();
+		trajet.setUuid(trajetDto.getUuid());
 		trajet.setMontant(trajetDto.getMontant());
+		trajet.setDateDepart(trajetDto.getDateDepart());
+		trajet.setTimeDepart(trajetDto.getTimeDepart());
+		// Récupération des entités Point de départ et d’arrivée à partir de leur UUID
+		Ville pointDepart = villeService.findByUuid(trajetDto.getUuidPointDepart());
+		Ville pointArrive =villeService.findByUuid(trajetDto.getUuidPointArriver());
+		trajet.setPointDepart(pointDepart);
+		trajet.setPointArrive(pointArrive);
+
 		return trajet;
 	}
 
-    //  la conversion de la planification en dto
+	//  la conversion de la planification en dto
 	public static PlanificationVoyageDto toDtoPlanificationVoyage(PlanificationVoyage planificationVoyage) {
 		PlanificationVoyageDto dto = new PlanificationVoyageDto();
 		dto.setUuid(planificationVoyage.getUuid());

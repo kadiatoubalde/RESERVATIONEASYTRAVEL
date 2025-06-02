@@ -43,6 +43,10 @@ public class VilleServiceImpl  implements VilleService{
 		// TODO Auto-generated method stub
 	}
 
+	public Ville findByUuid(String uuid) {
+		return villeRepository.findByUuid(uuid).orElseThrow();
+	}
+
 	@Override
 	public List<VilleDto> listeVille() {
 		List<Ville> villes = villeRepository.findAll();
