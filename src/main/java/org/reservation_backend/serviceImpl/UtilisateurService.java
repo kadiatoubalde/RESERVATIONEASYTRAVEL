@@ -1,10 +1,12 @@
 package org.reservation_backend.serviceImpl;
 
 import org.reservation_backend.Enum.EnumRoleUtilisateur;
+import org.reservation_backend.dto.TrajetDto;
 import org.reservation_backend.dto.UtilisateurDto;
 import org.reservation_backend.exception.ResourceAlreadyExistException;
 import org.reservation_backend.fonction.Fonction;
 import org.reservation_backend.mapper.Mapper;
+import org.reservation_backend.models.Trajet;
 import org.reservation_backend.models.Utilisateur;
 import org.reservation_backend.repository.RoleRepository;
 import org.reservation_backend.repository.UtilisateurRepository;
@@ -85,4 +87,31 @@ public class UtilisateurService implements UserDetailsService {
         List<Utilisateur> utilisateurs = userRepository.findByRole(EnumRoleUtilisateur.valueOf(role));
         return Mapper.toUtilisateurDtoList(utilisateurs);
     }
+    public Utilisateur getCurrentUserWithTrajets() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByEmailWithTrajets(email)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+    }
+
+
+    public List<TrajetDto> getAllMyTrajets() {
+        try {
+
+            List<Trajet> myAllTrajets = getCurrentUserWithTrajets().getTrajets();
+
+            if (myAllTrajets != null) {
+                return myAllTrajets.stream()
+                        .map(Mapper::toDtoTrajet)
+                        .toList();
+            }
+            return List.of();
+
+        } catch (ClassCastException e) {
+            throw new RuntimeException("L'utilisateur courant n'est pas de type Utilisateur");
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la récupération de l'utilisateur connecté : " + e.getMessage());
+        }
+    }
+
+
 }

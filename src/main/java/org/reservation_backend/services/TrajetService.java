@@ -13,7 +13,7 @@ public interface TrajetService {
  
 	TrajetDto addTrajet(TrajetDto trajetDto);
 	TrajetDto updateTrajet(TrajetDto trajetDto,String uuid);
-	TrajetDto getTrajet(String uuid);
+	Trajet getTrajet(String uuid);
 	List<TrajetDto> listeTrajet();
 	boolean deleteTrajet(String uuid);
 
@@ -21,4 +21,6 @@ public interface TrajetService {
     String attribuer(String trajetId, String chauffeurId);
 
 	List<Trajet> rechercherTrajets(SearchTrajetDto dto);
+
+	boolean changeStatus(String uuid, String status);
 }

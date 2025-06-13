@@ -27,6 +27,7 @@ public class Mapper {
 		trajetDto.setUuidPointArriver(trajet.getPointArrive().getUuid());
 		trajetDto.setUuidPointDepart(trajet.getPointDepart().getUuid());
 		trajetDto.setMontant(trajet.getMontant());
+		trajetDto.setStatus(trajet.getStatus());
 		trajetDto.setDateDepart(trajet.getDateDepart());
 		trajetDto.setTimeDepart(trajet.getTimeDepart());
 		Optional.ofNullable(trajet.getChauffeur())

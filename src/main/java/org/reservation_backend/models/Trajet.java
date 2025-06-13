@@ -3,12 +3,17 @@ package org.reservation_backend.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.reservation_backend.Enum.StatutTrajet;
 
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
+@Data
 public class Trajet extends  AbstractDomainClass{
 
     @ManyToOne
@@ -18,41 +23,7 @@ public class Trajet extends  AbstractDomainClass{
     private double montant;
     private LocalDate dateDepart;
 	private LocalTime timeDepart;
-
-	public LocalDate getDateDepart() {
-		return dateDepart;
-	}
-
-	public void setDateDepart(LocalDate dateDepart) {
-		this.dateDepart = dateDepart;
-	}
-
-	public LocalTime getTimeDepart() {
-		return timeDepart;
-	}
-
-	public void setTimeDepart(LocalTime timeDepart) {
-		this.timeDepart = timeDepart;
-	}
-
-	public double getMontant() {
-		return montant;
-	}
-	public void setMontant(double montant) {
-		this.montant = montant;
-	}
-	public Ville getPointDepart() {
-		return pointDepart;
-	}
-	public void setPointDepart(Ville pointDepart) {
-		this.pointDepart = pointDepart;
-	}
-	public Ville getPointArrive() {
-		return pointArrive;
-	}
-	public void setPointArrive(Ville pointArrive) {
-		this.pointArrive = pointArrive;
-	}
+	private StatutTrajet status = StatutTrajet.PLANIFIE;
 	public Trajet(Ville pointDepart, Ville pointArrive, double montant) {
 		super();
 		this.pointDepart = pointDepart;
@@ -61,7 +32,7 @@ public class Trajet extends  AbstractDomainClass{
 	}
 	public Trajet() {
 		super();
-		
+
 	}
 
 
@@ -69,11 +40,4 @@ public class Trajet extends  AbstractDomainClass{
 	@JoinColumn(name = "chauffeur_id")
 	private Utilisateur chauffeur;
 
-	public Utilisateur getChauffeur() {
-		return chauffeur;
-	}
-
-	public void setChauffeur(Utilisateur chauffeur) {
-		this.chauffeur = chauffeur;
-	}
 }

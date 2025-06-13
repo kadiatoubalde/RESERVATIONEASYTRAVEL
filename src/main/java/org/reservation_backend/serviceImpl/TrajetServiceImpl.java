@@ -1,6 +1,7 @@
 package org.reservation_backend.serviceImpl;
 
 import org.reservation_backend.Enum.EnumRoleUtilisateur;
+import org.reservation_backend.Enum.StatutTrajet;
 import org.reservation_backend.dto.SearchTrajetDto;
 import org.reservation_backend.dto.TrajetDto;
 import org.reservation_backend.mapper.Mapper;
@@ -88,15 +89,12 @@ public class TrajetServiceImpl  implements TrajetService{
 	}
 
 
-	/**
-	 * @param uuid
-	 * @return
-	 */
 	@Override
-	public TrajetDto getTrajet(String uuid) {
-		Trajet trajet = trajetRepository.findById(uuid).orElseThrow();
-		return Mapper.toDtoTrajet(trajet);
+	public Trajet getTrajet(String id) {
+		return trajetRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Aucun trajet trouvé avec l’ID : " + id));
 	}
+
 
 	/**
 	 * @return
@@ -133,5 +131,17 @@ public class TrajetServiceImpl  implements TrajetService{
 
 	public List<Trajet> rechercherTrajets(SearchTrajetDto dto) {
 		return trajetRepository.findAll(TrajetSpecification.withPrioritizedSearch(dto));
+	}
+
+	@Override
+	public boolean changeStatus(String uuid, String status) {
+		try{
+			Trajet trajet = trajetRepository.findById(uuid).orElseThrow(()->new RuntimeException("Trajet non trouv<UNK>"));
+			trajet.setStatus(StatutTrajet.valueOf(status));
+			trajetRepository.save(trajet);
+			return true;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

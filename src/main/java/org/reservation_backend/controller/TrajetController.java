@@ -9,6 +9,7 @@ import org.reservation_backend.dto.SearchTrajetDto;
 import org.reservation_backend.dto.TrajetDto;
 import org.reservation_backend.mapper.Mapper;
 import org.reservation_backend.models.Trajet;
+import org.reservation_backend.serviceImpl.UtilisateurService;
 import org.reservation_backend.services.TrajetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,8 +22,13 @@ public class TrajetController {
 	
 	@Autowired
 	private TrajetService trajetService;
-	
-	@PostMapping("")
+	private final UtilisateurService utilisateurService;
+
+    public TrajetController(UtilisateurService utilisateurService) {
+        this.utilisateurService = utilisateurService;
+    }
+
+    @PostMapping("")
 	public ResponseEntity<TrajetDto> addTrajet(@RequestBody TrajetDto trajetDto) {
 		TrajetDto createdTrajet = trajetService.addTrajet(trajetDto);
 		return ResponseEntity.ok(createdTrajet);
@@ -36,7 +42,7 @@ public class TrajetController {
 	
 	@GetMapping("/{uuid}")
 	public ResponseEntity<TrajetDto> getTrajet(@PathVariable String uuid) {
-		TrajetDto trajet = trajetService.getTrajet(uuid);
+		TrajetDto trajet = Mapper.toDtoTrajet(trajetService.getTrajet(uuid));
 		if(trajet != null) {
 			return ResponseEntity.ok(trajet);
 		}else {
@@ -84,5 +90,16 @@ public class TrajetController {
 		return ResponseEntity.ok(result);
 	}
 
-
+	@GetMapping("/chauffeur/mesTrajets")
+	public ResponseEntity<List<TrajetDto>> getAllMyTrajets() {
+		return ResponseEntity.ok().body(
+				utilisateurService.getAllMyTrajets()
+		);
+	}
+	@PutMapping("/changeStatus/{uuid}")
+	public ResponseEntity<Boolean> changeStatus(@PathVariable String uuid, @RequestParam String status) {
+		return ResponseEntity.ok(
+				trajetService.changeStatus(uuid,status)
+		);
+	}
 }

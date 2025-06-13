@@ -1,6 +1,7 @@
 package org.reservation_backend.dto;
 
 import lombok.Data;
+import org.reservation_backend.Enum.StatutTrajet;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,7 +17,7 @@ public class TrajetDto {
 	private LocalTime timeDepart;
 	private double montant;
 	private String chauffeurId;
-
+    private StatutTrajet status;
 
 	public String getChauffeurId() {
 		return chauffeurId;
@@ -89,4 +90,12 @@ public class TrajetDto {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
+
+    public StatutTrajet getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatutTrajet status) {
+        this.status = status;
+    }
 }
