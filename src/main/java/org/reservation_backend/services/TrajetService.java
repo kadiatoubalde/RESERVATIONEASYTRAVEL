@@ -1,7 +1,10 @@
 package org.reservation_backend.services;
 
 import java.util.List;
+
+import org.reservation_backend.dto.SearchTrajetDto;
 import org.reservation_backend.dto.TrajetDto;
+import org.reservation_backend.models.Trajet;
 import org.springframework.stereotype.Service;
 
 
@@ -16,4 +19,6 @@ public interface TrajetService {
 
 
     String attribuer(String trajetId, String chauffeurId);
+
+	List<Trajet> rechercherTrajets(SearchTrajetDto dto);
 }

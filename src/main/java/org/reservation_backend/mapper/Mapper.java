@@ -8,6 +8,7 @@ import org.reservation_backend.services.VilleService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Component
 public class Mapper {
@@ -28,6 +29,10 @@ public class Mapper {
 		trajetDto.setMontant(trajet.getMontant());
 		trajetDto.setDateDepart(trajet.getDateDepart());
 		trajetDto.setTimeDepart(trajet.getTimeDepart());
+		Optional.ofNullable(trajet.getChauffeur())
+				.map(Utilisateur::getUuid)
+				.ifPresent(trajetDto::setChauffeurId);
+
 		return trajetDto;
 	}
 

@@ -5,10 +5,11 @@ import java.util.List;
 import org.reservation_backend.models.Trajet;
 import org.reservation_backend.models.Ville;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TrajetRepository extends JpaRepository<Trajet,String> {
+public interface TrajetRepository extends JpaRepository<Trajet,String>, JpaSpecificationExecutor<Trajet> {
 	List<Trajet> findByPointDepart(Ville pointDepart);
 
     List<Trajet> findByPointArrive(Ville pointArrive);

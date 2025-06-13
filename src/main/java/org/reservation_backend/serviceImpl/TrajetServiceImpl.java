@@ -1,9 +1,11 @@
 package org.reservation_backend.serviceImpl;
 
 import org.reservation_backend.Enum.EnumRoleUtilisateur;
+import org.reservation_backend.dto.SearchTrajetDto;
 import org.reservation_backend.dto.TrajetDto;
 import org.reservation_backend.mapper.Mapper;
 import org.reservation_backend.models.Trajet;
+import org.reservation_backend.models.TrajetSpecification;
 import org.reservation_backend.models.Utilisateur;
 import org.reservation_backend.models.Ville;
 import org.reservation_backend.repository.TrajetRepository;
@@ -114,11 +116,8 @@ public class TrajetServiceImpl  implements TrajetService{
 	@Override
 	public boolean deleteTrajet(String uuid) {
 		Trajet trajet = trajetRepository.findById(uuid).orElseThrow();
-		if (!trajet.isDelete()) {
-			trajet.setDelete(true);
-			trajetRepository.save(trajet);
-		}
-		return trajet.isDelete();
+		trajetRepository.delete(trajet);
+		return true;
 	}
 
 	@Override
@@ -130,5 +129,9 @@ public class TrajetServiceImpl  implements TrajetService{
 		trajet.setChauffeur(chauffeur);
 		trajetRepository.save(trajet);
 		return "trajet attribué";
+	}
+
+	public List<Trajet> rechercherTrajets(SearchTrajetDto dto) {
+		return trajetRepository.findAll(TrajetSpecification.withPrioritizedSearch(dto));
 	}
 }

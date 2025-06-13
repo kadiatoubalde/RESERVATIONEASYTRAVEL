@@ -1,7 +1,10 @@
 package org.reservation_backend.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.reservation_backend.Enum.EnumRoleUtilisateur;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,10 +15,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "users")
+@Data
+@EntityListeners(AuditingEntityListener.class)
 public class Utilisateur extends AbstractDomainClass implements UserDetails {
-
 
     private String firstname;
     private String lastname;

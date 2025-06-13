@@ -1,21 +1,19 @@
 package org.reservation_backend.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.reservation_backend.dto.AttribuerChauffeurRequest;
+import org.reservation_backend.dto.SearchTrajetDto;
 import org.reservation_backend.dto.TrajetDto;
+import org.reservation_backend.mapper.Mapper;
 import org.reservation_backend.models.Trajet;
 import org.reservation_backend.services.TrajetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/trajets")
@@ -67,4 +65,24 @@ public class TrajetController {
 				trajetService.attribuer(trajetId,chauffeurId.getChauffeurId())
 		);
 	}
+	@GetMapping("/search")
+	public ResponseEntity<List<TrajetDto>> searchTrajets(
+			@RequestParam(required = false) String departId,
+			@RequestParam(required = false) String arriveId,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateDepart,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime timeDepart
+	) {
+		SearchTrajetDto dto = SearchTrajetDto.builder()
+				.departId(departId)
+				.arriveId(arriveId)
+				.dateDepart(dateDepart)
+				.timeDepart(timeDepart)
+				.build();
+
+		List<Trajet> trajets = trajetService.rechercherTrajets(dto);
+		List<TrajetDto> result = trajets.stream().map(Mapper::toDtoTrajet).toList();
+		return ResponseEntity.ok(result);
+	}
+
+
 }
