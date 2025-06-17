@@ -5,14 +5,18 @@ import java.time.LocalTime;
 import java.util.List;
 
 import org.reservation_backend.dto.AttribuerChauffeurRequest;
+import org.reservation_backend.dto.ReservationDto;
 import org.reservation_backend.dto.SearchTrajetDto;
 import org.reservation_backend.dto.TrajetDto;
 import org.reservation_backend.mapper.Mapper;
 import org.reservation_backend.models.Trajet;
+import org.reservation_backend.serviceImpl.TrajetServiceImpl;
 import org.reservation_backend.serviceImpl.UtilisateurService;
+import org.reservation_backend.services.ReservationService;
 import org.reservation_backend.services.TrajetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +27,11 @@ public class TrajetController {
 	@Autowired
 	private TrajetService trajetService;
 	private final UtilisateurService utilisateurService;
+	private final ReservationService reservationService;
 
-    public TrajetController(UtilisateurService utilisateurService) {
+	public TrajetController(UtilisateurService utilisateurService, ReservationService reservationService) {
         this.utilisateurService = utilisateurService;
+        this.reservationService = reservationService;
     }
 
     @PostMapping("")

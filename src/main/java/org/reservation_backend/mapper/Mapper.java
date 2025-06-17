@@ -2,11 +2,13 @@ package org.reservation_backend.mapper;
 
 
 import org.reservation_backend.Enum.EnumRoleUtilisateur;
+import org.reservation_backend.Enum.StatutEnum;
 import org.reservation_backend.dto.*;
 import org.reservation_backend.models.*;
 import org.reservation_backend.services.VilleService;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -137,26 +139,31 @@ public class Mapper {
 	  return paiement;
 
   }
-  
-   public  static ReservationDto toDtoReservation(Reservation reservation) {
-		ReservationDto 	reservationDto  = new ReservationDto();
-		reservationDto.setUuid(reservation.getUuid());
-		reservationDto.setDate(reservation.getDate());
-		reservationDto.setStatut(reservation.getStatut());
-		reservationDto.setNombreBagage(reservation.getNombreBagage());
-		reservationDto.setNumeroReservation(reservation.getNumeroReservation());
-		reservationDto.setUuidPassager(reservation.getPassager().getUuid());
-		reservationDto.setUuidUtilisateur(reservation.getUtilisateur().getUuid());
-		return reservationDto;
-   }
-   public static Reservation toEntityReservation(ReservationDto reservationDto) {
+
+	public static ReservationDtoResponse toDtoReservation(Reservation reservation) {
+		if (reservation == null) return null;
+
+		ReservationDtoResponse dto = new ReservationDtoResponse();
+		dto.setUuid(reservation.getUuid());
+		dto.setDate(reservation.getDate() != null ? reservation.getDate().atStartOfDay() : null);
+		dto.setStatut(reservation.getStatut() != null ? reservation.getStatut().name() : null);
+		dto.setNombreBagage(reservation.getNombreBagage());
+		dto.setNumeroReservation(reservation.getNumeroReservation());
+
+		return dto;
+	}
+
+	public Reservation toEntityReservation(ReservationDto dto, Trajet trajet, Utilisateur passager) {
 		Reservation reservation = new Reservation();
-		reservation.setUuid(reservation.getUuid());
-		reservation.setDate(reservation.getDate());
-		reservation.setStatut(reservation.getStatut());
-		reservation.setNombreBagage(reservation.getNombreBagage());
-		return  reservation;
-   }
+		reservation.setTrajet(trajet);
+		reservation.setPassager(passager);
+		reservation.setNombreBagage(dto.getNombreBagage());
+		reservation.setDate(LocalDate.now());
+		reservation.setStatut(StatutEnum.EN_ATTENTE);
+		reservation.setNumeroReservation("RES" + System.currentTimeMillis()); // ou une autre logique
+		return reservation;
+	}
+
 
    public  static VehiculeDto toDtoVehicule(Vehicule vehicule) {
 	     VehiculeDto  vehiculeDto = new  VehiculeDto();

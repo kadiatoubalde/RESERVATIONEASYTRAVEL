@@ -10,10 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -33,6 +30,9 @@ public class Utilisateur extends AbstractDomainClass implements UserDetails {
 
     @OneToMany(mappedBy = "chauffeur")
     private List<Trajet> trajets;
+
+    @OneToMany(mappedBy = "passager", cascade = CascadeType.ALL)
+    private List<Reservation> reservations = new ArrayList<>();
 
     /**
      * @return

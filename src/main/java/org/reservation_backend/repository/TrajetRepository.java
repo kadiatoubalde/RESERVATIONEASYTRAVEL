@@ -1,6 +1,7 @@
 package org.reservation_backend.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.reservation_backend.models.Trajet;
 import org.reservation_backend.models.Ville;
@@ -13,4 +14,6 @@ public interface TrajetRepository extends JpaRepository<Trajet,String>, JpaSpeci
 	List<Trajet> findByPointDepart(Ville pointDepart);
 
     List<Trajet> findByPointArrive(Ville pointArrive);
+
+    Optional<Trajet> findByUuid(String uuid);
 }

@@ -15,8 +15,8 @@ public class Passager  extends  AbstractDomainClass{
     private  String  civilite;
     private  String  genre;
 
-    @OneToMany(mappedBy = "passager")
-    private List<Reservation> reservations;
+//    @OneToMany(mappedBy = "passager")
+//    private List<Reservation> reservations;
 
   
 
@@ -84,13 +84,13 @@ public class Passager  extends  AbstractDomainClass{
 		this.genre = genre;
 	}
 
-	public List<Reservation> getReservations() {
-		return reservations;
-	}
-
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
-	}
+//	public List<Reservation> getReservations() {
+//		return reservations;
+//	}
+//
+//	public void setReservations(List<Reservation> reservations) {
+//		this.reservations = reservations;
+//	}
 
 	
 
@@ -110,7 +110,6 @@ public class Passager  extends  AbstractDomainClass{
 		this.adressePersonneContact = adressePersonneContact;
 		this.civilite = civilite;
 		this.genre = genre;
-		this.reservations = reservations;
 	}
 
 	

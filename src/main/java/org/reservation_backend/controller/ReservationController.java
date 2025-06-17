@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 
 import org.reservation_backend.dto.ReservationDto;
+import org.reservation_backend.dto.ReservationDtoResponse;
 import org.reservation_backend.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,46 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api")
-@SecurityRequirement(name = "bearerAuth")
+@RequestMapping("/api/reservations")
 public class ReservationController {
-	
-@Autowired
-private ReservationService reservationService;
+    private final ReservationService reservationService;
 
-@PostMapping("/reservation")
-public ResponseEntity<ReservationDto> addReservation(@RequestBody ReservationDto reservationDto) {
-	ReservationDto createdReservation = reservationService.addReservation(reservationDto);
-    return ResponseEntity.ok(createdReservation);
-}
-@PutMapping("/reservation/{uuid}")
-public  ResponseEntity<ReservationDto >updateReservation(@RequestBody ReservationDto reservationDto, @PathVariable String uuid) {
-	ReservationDto updatedReservation = reservationService.updateReservation(reservationDto, uuid);
-    return ResponseEntity.ok(updatedReservation);
-}
-@GetMapping("/reservation/{uuid}")
-public  ResponseEntity<ReservationDto> getReservation(@PathVariable String uuid) {
-	ReservationDto reservation = reservationService.getReservation(uuid);
-	if(reservation != null) {
-		return ResponseEntity.ok(reservation);
-	} else {
-		return ResponseEntity.notFound().build();
-	}
-  
-}
-@GetMapping("/reservation")
-public ResponseEntity<List<ReservationDto>> listReservations() {
-	List<ReservationDto> reservations = reservationService.listeReservation();
-    return ResponseEntity.ok(reservations);
-}
-@DeleteMapping("/reservation/{uuid}")
-public ResponseEntity<Void> deleteReservation(@PathVariable String uuid) {
-	boolean deleted = reservationService.deleteReservation(uuid);
-	if(deleted) {
-		return ResponseEntity.noContent().build();
-	} else {
-		return ResponseEntity.notFound().build();
-	}
-}
+    public ReservationController(ReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
 
+    @PostMapping
+    public ResponseEntity<ReservationDtoResponse> reserver(@RequestBody ReservationDto reservationDto) {
+        ReservationDtoResponse response = reservationService.reserverTrajet(reservationDto);
+        return ResponseEntity.ok(response);
+    }
 }
