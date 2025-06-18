@@ -8,4 +8,6 @@ import org.reservation_backend.dto.ReservationDtoResponse;
 
 public interface ReservationService {
     ReservationDtoResponse reserverTrajet(ReservationDto reservationDto);
+
+    List<ReservationDtoResponse> mesReservations();
 }

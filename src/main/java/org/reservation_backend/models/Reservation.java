@@ -38,4 +38,7 @@ public class Reservation  extends AbstractDomainClass{
 	@ManyToOne
 	@JoinColumn(name = "trajet_id")
 	private Trajet trajet;
+
+    private int nombreBillets;
+
 }

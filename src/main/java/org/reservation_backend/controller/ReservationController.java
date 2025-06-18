@@ -26,9 +26,15 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<ReservationDtoResponse> reserver(@RequestBody ReservationDto reservationDto) {
         ReservationDtoResponse response = reservationService.reserverTrajet(reservationDto);
         return ResponseEntity.ok(response);
+    }
+    @GetMapping("/mesReservations")
+    public ResponseEntity<List<ReservationDtoResponse>> mesReservations(){
+        return ResponseEntity.ok(
+                reservationService.mesReservations()
+        );
     }
 }

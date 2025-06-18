@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class ReservationDto{
     private String trajetUuid;
     private int nombreBagage;
+    private int nombreBillets;
 }
 

@@ -161,6 +161,7 @@ public class Mapper {
 		reservation.setDate(LocalDate.now());
 		reservation.setStatut(StatutEnum.EN_ATTENTE);
 		reservation.setNumeroReservation("RES" + System.currentTimeMillis()); // ou une autre logique
+		reservation.setNombreBillets(dto.getNombreBillets());
 		return reservation;
 	}
 
