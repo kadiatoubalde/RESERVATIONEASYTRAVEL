@@ -23,7 +23,7 @@ public class Trajet extends  AbstractDomainClass{
     private double montant;
     private LocalDate dateDepart;
 	private LocalTime timeDepart;
-	private StatutTrajet status = StatutTrajet.PLANIFIE;
+	private StatutTrajet status = StatutTrajet.DEMARRER;
 	public Trajet(Ville pointDepart, Ville pointArrive, double montant) {
 		super();
 		this.pointDepart = pointDepart;
