@@ -2,6 +2,7 @@ package org.reservation_backend.dto;
 
 import lombok.Data;
 import org.reservation_backend.Enum.StatutTrajet;
+import org.reservation_backend.Enum.TypeVehicule;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,4 +19,6 @@ public class TrajetDto {
 	private double montant;
 	private String chauffeurId;
     private StatutTrajet status;
+	private int nombrePlaces;
+	private TypeVehicule typeVehicule;
 }

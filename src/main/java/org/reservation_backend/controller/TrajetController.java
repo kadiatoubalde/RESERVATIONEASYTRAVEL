@@ -4,10 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import org.reservation_backend.dto.AttribuerChauffeurRequest;
-import org.reservation_backend.dto.ReservationDto;
-import org.reservation_backend.dto.SearchTrajetDto;
-import org.reservation_backend.dto.TrajetDto;
+import org.reservation_backend.dto.*;
 import org.reservation_backend.mapper.Mapper;
 import org.reservation_backend.models.Trajet;
 import org.reservation_backend.serviceImpl.TrajetServiceImpl;
@@ -102,6 +99,11 @@ public class TrajetController {
 				utilisateurService.getAllMyTrajets()
 		);
 	}
+	@GetMapping("/chauffeur/mesPassager")
+	public ResponseEntity<List<PassagerDto>> getPassagersPourChauffeur() {
+		return ResponseEntity.ok(trajetService.getPassagerByTrajets());
+	}
+
 	@PutMapping("/changeStatus/{uuid}")
 	public ResponseEntity<Boolean> changeStatus(@PathVariable String uuid, @RequestParam String status) {
 		return ResponseEntity.ok(

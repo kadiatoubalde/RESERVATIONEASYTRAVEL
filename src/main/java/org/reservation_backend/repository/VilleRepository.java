@@ -11,4 +11,6 @@ public interface VilleRepository extends JpaRepository<Ville,String> {
     Optional<Ville> findByLibelle(String libelle);
 
     Optional<Ville> findByUuid(String uuid);
+    Optional<Ville> findByLibelleIgnoreCase(String libelle);
+
 }

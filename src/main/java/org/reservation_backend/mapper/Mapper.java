@@ -31,6 +31,8 @@ public class Mapper {
 		trajetDto.setMontant(trajet.getMontant());
 		trajetDto.setStatus(trajet.getStatus());
 		trajetDto.setDateDepart(trajet.getDateDepart());
+		trajetDto.setTypeVehicule(trajet.getTypeVehicule());
+		trajet.setNombrePlaces(trajetDto.getNombrePlaces());
 		trajetDto.setTimeDepart(trajet.getTimeDepart());
 		Optional.ofNullable(trajet.getChauffeur())
 				.map(Utilisateur::getUuid)
@@ -50,7 +52,8 @@ public class Mapper {
 		Ville pointArrive =villeService.findByUuid(trajetDto.getUuidPointArriver());
 		trajet.setPointDepart(pointDepart);
 		trajet.setPointArrive(pointArrive);
-
+		trajet.setNombrePlaces(trajetDto.getNombrePlaces());
+		trajet.setTypeVehicule(trajetDto.getTypeVehicule());
 		return trajet;
 	}
 
@@ -90,32 +93,32 @@ public class Mapper {
 		return planificationVoyage;
 	}
 	
-	public  static PassagerDto toDtoPassager(Passager passager) {
-		PassagerDto passagerDto = new PassagerDto();
-		passagerDto.setUuid(passager.getUuid());
-		passagerDto.setNom(passager.getNom());
-		passagerDto.setPrenom(passager.getPrenom());
-		passagerDto.setAdresse(passager.getAdresse());
-		passagerDto.setTelephone(passager.getTelephone());
-		passagerDto.setTelephonePersonneContact(passager.getTelephonePersonneContact());
-		passagerDto.setAdressePersonneContact(passager.getAdressePersonneContact());
-		passagerDto.setCivilite(passager.getCivilite());
-		passagerDto.setGenre(passager.getGenre());
-		return passagerDto;
-	}
-  public static Passager toEntityPassager(PassagerDto passagerDto) {
-		Passager passager = new Passager();
-		passager.setUuid(passagerDto.getUuid());
-	    passager.setNom(passagerDto.getNom());
-	    passager.setPrenom(passagerDto.getPrenom());
-	    passager.setAdresse(passagerDto.getAdresse());
-	    passager.setTelephone(passagerDto.getTelephone());
-	    passager.setTelephonePersonneContact(passagerDto.getTelephonePersonneContact());
-	    passager.setAdressePersonneContact(passagerDto.getAdressePersonneContact());
-	    passager.setCivilite(passagerDto.getCivilite());
-	    passager.setGenre(passagerDto.getGenre());
-	    return passager;
-       }
+//	public  static PassagerDto toDtoPassager(Passager passager) {
+//		PassagerDto passagerDto = new PassagerDto();
+//		passagerDto.setUuid(passager.getUuid());
+//		passagerDto.setNom(passager.getNom());
+//		passagerDto.setPrenom(passager.getPrenom());
+//		passagerDto.setAdresse(passager.getAdresse());
+//		passagerDto.setTelephone(passager.getTelephone());
+//		passagerDto.setTelephonePersonneContact(passager.getTelephonePersonneContact());
+//		passagerDto.setAdressePersonneContact(passager.getAdressePersonneContact());
+//		passagerDto.setCivilite(passager.getCivilite());
+//		passagerDto.setGenre(passager.getGenre());
+//		return passagerDto;
+//	}
+//  public static Passager toEntityPassager(PassagerDto passagerDto) {
+//		Passager passager = new Passager();
+//		passager.setUuid(passagerDto.getUuid());
+//	    passager.setNom(passagerDto.getNom());
+//	    passager.setPrenom(passagerDto.getPrenom());
+//	    passager.setAdresse(passagerDto.getAdresse());
+//	    passager.setTelephone(passagerDto.getTelephone());
+//	    passager.setTelephonePersonneContact(passagerDto.getTelephonePersonneContact());
+//	    passager.setAdressePersonneContact(passagerDto.getAdressePersonneContact());
+//	    passager.setCivilite(passagerDto.getCivilite());
+//	    passager.setGenre(passagerDto.getGenre());
+//	    return passager;
+//       }
   
   
   public  static PaiementDto toDtoPaiement(Paiement paiement) {

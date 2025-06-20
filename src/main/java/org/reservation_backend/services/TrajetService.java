@@ -2,6 +2,7 @@ package org.reservation_backend.services;
 
 import java.util.List;
 
+import org.reservation_backend.dto.PassagerDto;
 import org.reservation_backend.dto.SearchTrajetDto;
 import org.reservation_backend.dto.TrajetDto;
 import org.reservation_backend.models.Trajet;
@@ -23,4 +24,6 @@ public interface TrajetService {
 	List<Trajet> rechercherTrajets(SearchTrajetDto dto);
 
 	boolean changeStatus(String uuid, String status);
+
+    List<PassagerDto> getPassagerByTrajets();
 }

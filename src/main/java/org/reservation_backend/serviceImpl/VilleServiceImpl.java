@@ -2,6 +2,7 @@ package org.reservation_backend.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.reservation_backend.dto.VilleDto;
 import org.reservation_backend.fonction.Fonction;
@@ -18,15 +19,18 @@ public class VilleServiceImpl  implements VilleService{
 
 	@Override
 	public VilleDto addVille(VilleDto villeDto) {
-		Ville ville = new Ville();
-		
-		ville = Mapper.toEntityVille(villeDto);
-		if (!ville.equals(new Ville())) {
-			ville = villeRepository.save(ville);
+		// Vérifier si une ville avec le même nom (sans tenir compte de la casse) existe
+		Optional<Ville> existingVille = villeRepository.findByLibelleIgnoreCase(villeDto.getNom());
+
+		if (existingVille.isPresent()) {
+			throw new RuntimeException("La ville '" + villeDto.getNom() + "' existe déjà !");
 		}
-		return  Mapper.toDtoVille(ville);
-		// TODO Auto-generated method stub
+
+		Ville ville = Mapper.toEntityVille(villeDto);
+		Ville savedVille = villeRepository.save(ville);
+		return Mapper.toDtoVille(savedVille);
 	}
+
 
 	@Override
 	public VilleDto updateVille(VilleDto villeDto, String uuid) {

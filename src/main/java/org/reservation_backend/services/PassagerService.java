@@ -7,10 +7,10 @@ import org.reservation_backend.dto.PassagerDto;
 
 
 public interface PassagerService {
-	PassagerDto addPassager(PassagerDto passagerDto);
-    PassagerDto updatePassager(PassagerDto passagerDto, String uuid);
-    PassagerDto getPassager(String uuid);
-    List<PassagerDto> listePassager();
-    boolean deletePassager(String uuid);
+//	PassagerDto addPassager(PassagerDto passagerDto);
+//    PassagerDto updatePassager(PassagerDto passagerDto, String uuid);
+//    PassagerDto getPassager(String uuid);
+//    List<PassagerDto> listePassager();
+//    boolean deletePassager(String uuid);
 	
 }

@@ -15,42 +15,42 @@ public class PassagerServiceImpl  implements PassagerService{
   
 	@Autowired
     private PassagerRepository passagerRepository;
-	@Override
-	public PassagerDto addPassager(PassagerDto passagerDto) {
-		Passager passager = Mapper.toEntityPassager(passagerDto);
+//	@Override
+//	public PassagerDto addPassager(PassagerDto passagerDto) {
+//		Passager passager = Mapper.toEntityPassager(passagerDto);
+//
+//        if (!passager.equals(new Passager())) {
+//            passager = passagerRepository.save(passager);
+//        }
+//
+//        return Mapper.toDtoPassager(passager);
+//
+//	}
 
-        if (!passager.equals(new Passager())) {
-            passager = passagerRepository.save(passager);
-        }
-
-        return Mapper.toDtoPassager(passager);
-
-	}
-
-	@Override
-	public PassagerDto updatePassager(PassagerDto passagerDto, String uuid) {
-		Passager passager = passagerRepository.findById(uuid).orElseThrow();
-        passager = Mapper.toEntityPassager(passagerDto);
-
-        if (!passager.equals(new Passager())) {
-            passager = passagerRepository.save(passager);
-        }
-
-        return Mapper.toDtoPassager(passager);
-	}
-	@Override
-	public PassagerDto getPassager(String uuid) {
-		  Passager passager = passagerRepository.findById(uuid).orElseThrow();
-	        return Mapper.toDtoPassager(passager);
-	}
-	@Override
-	public List<PassagerDto> listePassager() {
-		List<Passager> passagers = passagerRepository.listes();
-	    List<PassagerDto> passagerDtos = new ArrayList<>();
-	    passagers.forEach(passager -> passagerDtos.add(Mapper.toDtoPassager(passager)));
-	    return passagerDtos;
-	}
-	@Override
+//	@Override
+//	public PassagerDto updatePassager(PassagerDto passagerDto, String uuid) {
+//		Passager passager = passagerRepository.findById(uuid).orElseThrow();
+//        passager = Mapper.toEntityPassager(passagerDto);
+//
+//        if (!passager.equals(new Passager())) {
+//            passager = passagerRepository.save(passager);
+//        }
+//
+//        return Mapper.toDtoPassager(passager);
+//	}
+//	@Override
+//	public PassagerDto getPassager(String uuid) {
+//		  Passager passager = passagerRepository.findById(uuid).orElseThrow();
+//	        return Mapper.toDtoPassager(passager);
+//	}
+//	@Override
+//	public List<PassagerDto> listePassager() {
+//		List<Passager> passagers = passagerRepository.listes();
+//	    List<PassagerDto> passagerDtos = new ArrayList<>();
+//	    passagers.forEach(passager -> passagerDtos.add(Mapper.toDtoPassager(passager)));
+//	    return passagerDtos;
+//	}
+//	@Override
 	public boolean deletePassager(String uuid) {
 		Passager passager = passagerRepository.findById(uuid).orElseThrow();
         if (!passager.isDelete()) {

@@ -6,6 +6,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.reservation_backend.Enum.StatutTrajet;
+import org.reservation_backend.Enum.TypeVehicule;
 
 import java.sql.Time;
 import java.time.LocalDate;
@@ -39,5 +40,6 @@ public class Trajet extends  AbstractDomainClass{
 	@ManyToOne
 	@JoinColumn(name = "chauffeur_id")
 	private Utilisateur chauffeur;
-
+	private int nombrePlaces;
+	private TypeVehicule typeVehicule;
 }

@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.reservation_backend.Enum.StatutEnum;
+import org.reservation_backend.Enum.StatutTrajet;
 import org.reservation_backend.dto.ReservationDto;
 import org.reservation_backend.dto.ReservationDtoResponse;
 import org.reservation_backend.mapper.Mapper;
@@ -35,30 +36,49 @@ public class ReservationServiceImpl implements ReservationService {
     }
     @Override
     public ReservationDtoResponse reserverTrajet(ReservationDto dto) {
-            // 1. Récupérer le trajet
-            Trajet trajet = trajetRepository.findByUuid(dto.getTrajetUuid())
-                    .orElseThrow(() -> new RuntimeException("Trajet introuvable"));
+        // 1. Récupérer le trajet
+        Trajet trajet = trajetRepository.findByUuid(dto.getTrajetUuid())
+                .orElseThrow(() -> new RuntimeException("Trajet introuvable"));
 
-            // 2. Récupérer le passager courant
-            Utilisateur utilisateur = utilisateurService.getCurrentUser();
-//            Passager passager = passagerRepository.findByTelephone(telephone)
-//                    .orElseThrow(() -> new RuntimeException("Passager introuvable"));
+        // 2. Vérifier la disponibilité des places
+        int nombrePlacesTotal = trajet.getNombrePlaces();
 
-            // 3. Créer la réservation
-            Reservation reservation = new Reservation();
-            reservation.setTrajet(trajet);
-            reservation.setPassager(utilisateur);
-            reservation.setNombreBagage(dto.getNombreBagage());
-            reservation.setDate(LocalDate.now());
-            reservation.setStatut(StatutEnum.EN_ATTENTE);
-            reservation.setNumeroReservation("RES" + System.currentTimeMillis());
+        // Nombre total de billets déjà réservés pour ce trajet
+        int totalBilletsReserves = reservationRepository
+                .sumNombreBilletsByTrajetId(trajet.getUuid())  // À créer
+                .orElse(0);
 
-            // 4. Sauvegarder
-            reservation = reservationRepository.save(reservation);
+        int billetsDemandes = dto.getNombreBillets(); // <<< utilisé ici
 
-            // 5. Retourner le DTO
-            return Mapper.toDtoReservation(reservation);
+        if (totalBilletsReserves + billetsDemandes > nombrePlacesTotal) {
+            throw new RuntimeException("Le trajet ne dispose pas d’assez de places disponibles.");
         }
+
+        // 3. Récupérer le passager connecté
+        Utilisateur utilisateur = utilisateurService.getCurrentUser();
+
+        // 4. Créer la réservation
+        Reservation reservation = new Reservation();
+        reservation.setTrajet(trajet);
+        reservation.setPassager(utilisateur);
+        reservation.setNombreBillets(billetsDemandes); // <<< ici aussi
+        reservation.setDate(LocalDate.now());
+        reservation.setStatut(StatutEnum.EN_ATTENTE);
+        reservation.setNumeroReservation("RES" + System.currentTimeMillis());
+
+        // 5. Sauvegarder la réservation
+        reservation = reservationRepository.save(reservation);
+
+        // 6. Vérifier si le trajet est désormais complet
+        if (totalBilletsReserves + billetsDemandes == nombrePlacesTotal) {
+            trajet.setStatus(StatutTrajet.COMPLET);
+            trajetRepository.save(trajet);
+        }
+
+        // 7. Retourner la réponse DTO
+        return Mapper.toDtoReservation(reservation);
+    }
+
 
     @Override
     public List<ReservationDtoResponse> mesReservations() {

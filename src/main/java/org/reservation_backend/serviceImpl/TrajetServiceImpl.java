@@ -2,6 +2,7 @@ package org.reservation_backend.serviceImpl;
 
 import org.reservation_backend.Enum.EnumRoleUtilisateur;
 import org.reservation_backend.Enum.StatutTrajet;
+import org.reservation_backend.dto.PassagerDto;
 import org.reservation_backend.dto.SearchTrajetDto;
 import org.reservation_backend.dto.TrajetDto;
 import org.reservation_backend.mapper.Mapper;
@@ -9,11 +10,13 @@ import org.reservation_backend.models.Trajet;
 import org.reservation_backend.models.TrajetSpecification;
 import org.reservation_backend.models.Utilisateur;
 import org.reservation_backend.models.Ville;
+import org.reservation_backend.repository.ReservationRepository;
 import org.reservation_backend.repository.TrajetRepository;
 import org.reservation_backend.repository.UtilisateurRepository;
 import org.reservation_backend.repository.VilleRepository;
 import org.reservation_backend.services.TrajetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,10 +33,15 @@ public class TrajetServiceImpl  implements TrajetService{
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
 
+	private final ReservationRepository reservationRepository;
+	private final UtilisateurService utilisateurService;
+
 	@Autowired
-	public TrajetServiceImpl(Mapper mapper) {
+	public TrajetServiceImpl(Mapper mapper, ReservationRepository reservationRepository,@Lazy UtilisateurService utilisateurService) {
 		this.mapper = mapper;
-	}
+        this.reservationRepository = reservationRepository;
+        this.utilisateurService = utilisateurService;
+    }
 
     /**
 	 * @param trajetDto
@@ -143,5 +151,11 @@ public class TrajetServiceImpl  implements TrajetService{
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public List<PassagerDto> getPassagerByTrajets() {
+		String chauffeurId = utilisateurService.getCurrentUser().getUuid();
+		return reservationRepository.findPassagerDtosByChauffeurId(chauffeurId);
 	}
 }
